@@ -10,12 +10,14 @@ namespace Saxxon.Xml.Test
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
         [Test]
-        public void Children_Add_ShouldAddElement()
+        public void ChildSet_ShouldAddNewElement()
         {
+            // Arrange.
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                   "<root>" +
                                   "</root>");
 
+            // Act.
             doc
                 .Children
                 .WithName("root")
@@ -25,6 +27,7 @@ namespace Saxxon.Xml.Test
                 .AddElement("child2", "content")
                 .AddElementUsing("child3", x => x.Value = "test");
 
+            // Assert.
             doc
                 .Children
                 .WithName("root")
@@ -68,29 +71,33 @@ namespace Saxxon.Xml.Test
         }
         
         [Test]
-        public void Children_ReturnsCorrectElements()
+        public void ChildSet_ShouldReturnCorrectElements()
         {
+            // Arrange.
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                   "<root>" +
                                   "  <child1></child1>" +
                                   "  <child2></child2>" +
                                   "</root>");
 
-            doc.Children["root"].First()
+            // Assert.
+            doc
+                .Children["root"]
+                .First()
                 .Children
-                .Should()
-                .HaveCount(2)
-                .And
-                .OnlyContain(x => x.Name == "child1" || x.Name == "child2");
+                .Select(x => x.Name)
+                .Should().Equal("child1", "child2");
         }
 
         [Test]
-        public void AddAttribute_ReturnsAddedAttribute()
+        public void AttributeSet_ShouldAddNewAttribute()
         {
+            // Arrange.
             var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                   "<root>" +
                                   "</root>");
 
+            // Act.
             document
                 .Children
                 .WithName("root")
@@ -99,6 +106,7 @@ namespace Saxxon.Xml.Test
                         .Add("testkey", "testvalue")
                         .Add("testkey2", "testvalue2"));
 
+            // Assert.
             document
                 .Children
                 .WithName("root")
