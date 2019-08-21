@@ -1,4 +1,4 @@
-using System.Xml.Linq;
+using System.Xml;
 
 namespace Saxxon.Xml.Test
 {
@@ -6,7 +6,9 @@ namespace Saxxon.Xml.Test
     {
         protected override IFluentXmlDocument GetDocument(string xml = null)
         {
-            var doc = xml != null ? XDocument.Parse(xml) : new XDocument();
+            var doc = new XmlDocument();
+            if (xml != null)
+                doc.LoadXml(xml);
             return doc.Fluent();
         }
     }

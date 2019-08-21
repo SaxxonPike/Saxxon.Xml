@@ -1,5 +1,3 @@
-using System;
-
 namespace Saxxon.Xml
 {
     public interface IFluentXmlObject

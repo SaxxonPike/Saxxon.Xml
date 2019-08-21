@@ -2,22 +2,24 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqAttribute : FluentSysXmlLinqNode, IFluentXmlAttribute
+    internal class FluentSysXmlLinqAttribute : FluentSysXmlLinqBase, IFluentXmlAttribute
     {
-        private readonly XAttribute _attribute;
+        private readonly XElement _element;
 
-        public FluentSysXmlLinqAttribute(XAttribute attribute) : base(attribute)
+        public FluentSysXmlLinqAttribute(XElement element, string name)
         {
-            _attribute = attribute;
+            _element = element;
+            Name = name;
         }
 
-        public override string Name =>
-            $"{_attribute.Name}";
+        public override string Name { get; }
+
+        public override XObject Node => _element?.Attribute(Name);
 
         public string Value
         {
-            get => _attribute.Value;
-            set => _attribute.Value = value;
+            get => _element.Attribute(Name)?.Value;
+            set => _element.SetAttributeValue(Name, value);
         }
     }
 }

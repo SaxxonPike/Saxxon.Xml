@@ -7,15 +7,15 @@ namespace Saxxon.Xml.Impl.SysXml
 {
     internal sealed class FluentSysXmlAttributeSet : IFluentXmlAttributeSet
     {
-        private readonly XmlAttributeCollection _attrList;
+        private readonly XmlNode _owner;
 
-        public FluentSysXmlAttributeSet(XmlAttributeCollection attrList)
+        public FluentSysXmlAttributeSet(XmlNode owner)
         {
-            _attrList = attrList;
+            _owner = owner;
         }
         
         private IEnumerable<XmlAttribute> GetNodes() =>
-            _attrList?
+            _owner?.Attributes?
                 .Cast<XmlAttribute>() ??
             Enumerable
                 .Empty<XmlAttribute>();
@@ -29,10 +29,11 @@ namespace Saxxon.Xml.Impl.SysXml
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
-        public IFluentXmlAttribute this[int index] =>
-            (IFluentXmlAttribute) FluentSysXmlFactory.Create(_attrList[index]);
-
         public IFluentXmlAttribute this[string name] =>
-            (IFluentXmlAttribute) FluentSysXmlFactory.Create(_attrList[name]);
+            new FluentSysXmlAttribute(_owner, name);
+
+        public IEnumerable<string> Keys =>
+            GetNodes()
+                .Select(x => x.Name);
     }
 }

@@ -6,6 +6,6 @@ namespace Saxxon.Xml
     {
         IFluentXmlAttribute this[string key] { get; }
         
-        IFluentXmlAttribute this[int index] { get; }
+        IEnumerable<string> Keys { get; }
     }
 }

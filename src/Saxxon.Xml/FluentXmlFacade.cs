@@ -33,27 +33,24 @@ namespace Saxxon.Xml
         public static IFluentXmlNode AsNode(this IFluentXmlObject obj) =>
             obj as IFluentXmlNode;
 
-        public static IFluentXmlObject GetOrCreateChild(this IFluentXmlObject obj, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static T Which<T>(this T obj, Action<T> scope) where T : IFluentXmlObject
+        public static T ForEach<T>(this T obj, Action<T> scope) 
+            where T : IFluentXmlObject
         {
             scope(obj);
             return obj;
         }
-
-        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject
+        
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> obj, Action<T> scope) 
+            where T : IFluentXmlObject
         {
-            return obj.Where(x => x.Name == name);
-        }
+            foreach (var node in obj)
+                scope(node);
 
-        public static IFluentXmlAttributeSet Add(this IFluentXmlAttributeSet obj, string name, string value)
-        {
-            obj[name].Value = value;
             return obj;
         }
+
+        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject => 
+            obj.Where(x => x.Name == name);
 
         #endregion Object
         

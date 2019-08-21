@@ -12,6 +12,9 @@ namespace Saxxon.Xml.Impl.SysXml
             Name = name;
         }
 
+        public override IFluentXmlObject Parent =>
+            FluentSysXmlFactory.Create(_parent);
+
         public override string Name { get; }
 
         public override XmlNode Node =>
@@ -29,7 +32,7 @@ namespace Saxxon.Xml.Impl.SysXml
                 if (existing == null && value != null)
                 {
                     var newNode = _parent?.OwnerDocument?.CreateAttribute(Name);
-                    if (newNode != null) 
+                    if (newNode == null) 
                         return;
 
                     newNode.Value = value;

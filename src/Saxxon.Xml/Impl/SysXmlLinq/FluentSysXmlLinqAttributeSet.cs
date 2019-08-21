@@ -28,10 +28,12 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
-        public IFluentXmlAttribute this[int index] =>
-            FluentSysXmlLinqFactory.Create(_node?.Attributes().Skip(index).FirstOrDefault()) as IFluentXmlAttribute;
-
         public IFluentXmlAttribute this[string name] =>
-            FluentSysXmlLinqFactory.Create(_node?.Attribute(name)) as IFluentXmlAttribute;
+            new FluentSysXmlLinqAttribute(_node, name);
+            //FluentSysXmlLinqFactory.Create(_node?.Attribute(name)) as IFluentXmlAttribute;
+
+        public IEnumerable<string> Keys =>
+            GetNodes()
+                .Select(x => $"{x.Name}");
     }
 }

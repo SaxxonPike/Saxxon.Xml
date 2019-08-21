@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
@@ -14,18 +15,25 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _node = node;
         }
 
-        public IEnumerator<IFluentXmlObject> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        private IEnumerable<XElement> GetNodes() =>
+            _node?.Nodes().OfType<XElement>() ??
+            Enumerable
+                .Empty<XElement>();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        public IEnumerator<IFluentXmlObject> GetEnumerator() =>
+            GetNodes()
+                .Select(FluentSysXmlLinqFactory.Create)
+                .GetEnumerator();
 
-        public IFluentXmlObject this[int index] => throw new NotImplementedException();
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
 
-        public IEnumerable<IFluentXmlObject> this[string name] => throw new NotImplementedException();
+        public IFluentXmlObject this[int index] =>
+            FluentSysXmlLinqFactory.Create(_node?.Nodes().Skip(index).Take(1).FirstOrDefault());
+
+        public IEnumerable<IFluentXmlObject> this[string name] =>
+            GetNodes()
+                .Where(x => x.Name == name)
+                .Select(FluentSysXmlLinqFactory.Create);
     }
 }

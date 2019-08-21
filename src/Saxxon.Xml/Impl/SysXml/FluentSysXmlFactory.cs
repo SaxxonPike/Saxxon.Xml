@@ -10,7 +10,7 @@ namespace Saxxon.Xml.Impl.SysXml
                 return null;
 
             if (node is XmlAttribute attribute)
-                return new FluentSysXmlAttribute(attribute.ParentNode, attribute.Name);
+                return new FluentSysXmlAttribute(attribute.OwnerElement, attribute.Name);
 
             if (node is XmlComment comment)
                 return new FluentSysXmlComment(comment);

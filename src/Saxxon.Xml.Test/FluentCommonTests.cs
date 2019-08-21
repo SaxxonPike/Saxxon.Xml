@@ -29,25 +29,25 @@ namespace Saxxon.Xml.Test
         [Test]
         public void AddAttribute_ReturnsAddedAttribute()
         {
-            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                   "<root>" +
                                   "</root>");
 
-            doc
+            document
                 .Children
                 .WithName("root")
-                .First()
-                .Which(x =>
-                    x.Attributes
-                        .Add("testkey", "testvalue"));
+                .ForEach(rootNode =>
+                    rootNode.Attributes
+                        .Add("testkey", "testvalue")
+                        .Add("testkey2", "testvalue2"));
 
-            doc
+            document
                 .Children
                 .WithName("root")
-                .First()
+                .Single()
                 .Attributes
                 .WithName("testkey")
-                .First()
+                .Single()
                 .Value
                 .Should().Be("testvalue");
         }

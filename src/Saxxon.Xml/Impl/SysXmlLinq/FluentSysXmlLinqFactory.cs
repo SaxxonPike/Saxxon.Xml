@@ -10,7 +10,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
                 return null;
 
             if (node is XAttribute attribute)
-                return new FluentSysXmlLinqAttribute(attribute);
+                return new FluentSysXmlLinqAttribute(attribute.Parent, $"{attribute.Name}");
 
             if (node is XComment comment)
                 return new FluentSysXmlLinqComment(comment);
