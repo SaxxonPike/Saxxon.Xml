@@ -10,6 +10,64 @@ namespace Saxxon.Xml.Test
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
         [Test]
+        public void Children_Add_ShouldAddElement()
+        {
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>");
+
+            doc
+                .Children
+                .WithName("root")
+                .Single()
+                .Children
+                .AddElement("child1")
+                .AddElement("child2", "content")
+                .AddElementUsing("child3", x => x.Value = "test");
+
+            doc
+                .Children
+                .WithName("root")
+                .Single()
+                .Scope(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child1")
+                        .Single()
+                        .Scope(node =>
+                        {
+                            node.Name.Should().Be("child1");
+                            node.Value.Should().BeEmpty();
+                        });
+                })
+                .Scope(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child2")
+                        .Single()
+                        .Scope(node =>
+                        {
+                            node.Name.Should().Be("child2");
+                            node.Value.Should().Be("content");
+                        });
+                })
+                .Scope(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child3")
+                        .Single()
+                        .Scope(node =>
+                        {
+                            node.Name.Should().Be("child3");
+                            node.Value.Should().Be("test");
+                        });
+                });
+        }
+        
+        [Test]
         public void Children_ReturnsCorrectElements()
         {
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +

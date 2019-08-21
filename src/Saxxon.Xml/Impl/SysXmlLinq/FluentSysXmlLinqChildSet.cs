@@ -34,5 +34,19 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             GetNodes()
                 .Where(x => x.Name == name)
                 .Select(FluentSysXmlLinqFactory.Create);
+
+        public IFluentXmlElement CreateElement(string name)
+        {
+            var element = new XElement(name);
+            _node.Add(element);
+            return (IFluentXmlElement) FluentSysXmlLinqFactory.Create(element);
+        }
+
+        public IFluentXmlComment CreateComment()
+        {
+            var comment = new XComment(string.Empty);
+            _node.Add(comment);
+            return (IFluentXmlComment) FluentSysXmlLinqFactory.Create(comment);
+        }
     }
 }

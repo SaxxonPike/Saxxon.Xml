@@ -7,5 +7,9 @@ namespace Saxxon.Xml
         IFluentXmlObject this[int index] { get; }
 
         IEnumerable<IFluentXmlObject> this[string name] { get; }
+
+        IFluentXmlElement CreateElement(string name);
+
+        IFluentXmlComment CreateComment();
     }
 }

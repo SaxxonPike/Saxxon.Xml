@@ -7,15 +7,15 @@ namespace Saxxon.Xml.Impl.SysXml
 {
     internal sealed class FluentSysXmlChildSet : IFluentXmlChildSet
     {
-        private readonly XmlNodeList _nodeList;
+        private readonly XmlNode _parent;
 
-        public FluentSysXmlChildSet(XmlNodeList nodeList)
+        public FluentSysXmlChildSet(XmlNode parent)
         {
-            _nodeList = nodeList;
+            _parent = parent;
         }
 
         private IEnumerable<XmlNode> GetNodes() =>
-            _nodeList?
+            _parent?.ChildNodes
                 .Cast<XmlNode>() ??
             Enumerable
                 .Empty<XmlNode>();
@@ -29,11 +29,34 @@ namespace Saxxon.Xml.Impl.SysXml
             GetEnumerator();
 
         public IFluentXmlObject this[int index] =>
-            FluentSysXmlFactory.Create(_nodeList[index]);
+            FluentSysXmlFactory.Create(_parent?.ChildNodes[index]);
 
         public IEnumerable<IFluentXmlObject> this[string name] =>
             GetNodes()
                 .Where(x => x.Name == name)
                 .Select(FluentSysXmlFactory.Create);
+
+        public IFluentXmlElement CreateElement(string name)
+        {
+            var element = _parent?.OwnerDocument?.CreateElement(name);
+            if (element != null)
+                _parent.AppendChild(element);
+            else
+                return null;
+            return (IFluentXmlElement) FluentSysXmlFactory.Create(element);
+        }
+
+        public IFluentXmlComment CreateComment()
+        {
+            var comment = _parent?.OwnerDocument?.CreateComment(string.Empty);
+            if (comment != null)
+                _parent.AppendChild(comment);
+            else
+                return null;
+            return (IFluentXmlComment) FluentSysXmlFactory.Create(comment);
+        }
+
+        public override string ToString() => 
+            _parent?.ToString() ?? string.Empty;
     }
 }

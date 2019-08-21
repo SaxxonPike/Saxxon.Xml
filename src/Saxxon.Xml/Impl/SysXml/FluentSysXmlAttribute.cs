@@ -22,7 +22,7 @@ namespace Saxxon.Xml.Impl.SysXml
                 .Attributes?
                 .GetNamedItem(Name);
 
-        public string Value
+        public override string Value
         {
             get => Node?.Value;
             set

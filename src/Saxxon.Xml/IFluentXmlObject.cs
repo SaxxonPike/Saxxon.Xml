@@ -8,8 +8,10 @@ namespace Saxxon.Xml
         
         string Name { get; }
         
-        string InnerXml { get; }
-
+        string Xml { get; }
+        
         IFluentXmlAttributeSet Attributes { get; }
+        
+        string Value { get; set; }
     }
 }

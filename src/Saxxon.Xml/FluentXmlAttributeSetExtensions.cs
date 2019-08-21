@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// ReSharper disable UnusedMethodReturnValue.Global
+
 namespace Saxxon.Xml
 {
-    public static class FluentXmlAttributeExtensions
+    public static class FluentXmlAttributeSetExtensions
     {
         public static IFluentXmlAttributeSet Add(this IFluentXmlAttributeSet obj, string name, string value)
         {
@@ -32,6 +34,13 @@ namespace Saxxon.Xml
         {
             foreach (var pair in keyValuePairs)
                 Add(obj, pair.Key, pair.Value);
+            return obj;
+        }
+
+        public static IFluentXmlAttributeSet AddUsing(this IFluentXmlAttributeSet obj, string name,
+            Action<IFluentXmlAttribute> setup)
+        {
+            setup(Add(obj, name)[name]);
             return obj;
         }
 
@@ -63,7 +72,7 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static Dictionary<string, string> ToDictionary(this IFluentXmlAttributeSet obj) => 
+        public static Dictionary<string, string> ToDictionary(this IFluentXmlAttributeSet obj) =>
             obj.ToDictionary(x => x.Name, x => x.Value);
     }
 }

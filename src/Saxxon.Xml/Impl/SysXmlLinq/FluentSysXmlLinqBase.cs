@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
@@ -15,13 +16,28 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             .Name
             .ToString();
         
-        public virtual string InnerXml =>
+        public virtual string Xml =>
             (Node as XNode)?
             .ToString();
 
         public virtual IFluentXmlAttributeSet Attributes =>
             new FluentSysXmlLinqAttributeSet(Node as XElement);
 
+        public virtual string Value
+        {
+            get => (Node as XElement)?.Value;
+            set
+            {
+                if (Node is XElement element)
+                    element.SetValue(value);
+                else
+                    throw new InvalidOperationException();
+            }
+        }
+
         public abstract XObject Node { get; }
+
+        public override string ToString() => 
+            Node?.ToString() ?? string.Empty;
     }
 }

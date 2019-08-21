@@ -17,6 +17,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 
             if (node is XDocument document)
                 return new FluentSysXmlLinqDocument(document);
+
+            if (node is XElement element)
+                return new FluentSysXmlLinqElement(element);
             
             return new FluentSysXmlLinqNode(node);
         }
