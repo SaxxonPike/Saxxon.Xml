@@ -28,9 +28,9 @@ namespace Saxxon.Xml.Test
 
             doc
                 .Declaration
-                .Scope(d => d.Encoding.Should().Be("ASCII"))
-                .Scope(d => d.Standalone.Should().Be("yes"))
-                .Scope(d => d.Version.Should().Be("1.1"));
+                .Within(d => d.Encoding.Should().Be("ASCII"))
+                .Within(d => d.Standalone.Should().Be("yes"))
+                .Within(d => d.Version.Should().Be("1.1"));
         }
     }
 }

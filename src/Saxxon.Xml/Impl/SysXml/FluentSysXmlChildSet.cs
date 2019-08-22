@@ -56,6 +56,12 @@ namespace Saxxon.Xml.Impl.SysXml
             return (IFluentXmlComment) FluentSysXmlFactory.Create(comment);
         }
 
+        public void Remove(IFluentXmlObject node)
+        {
+            if (node is FluentSysXmlBase child)
+                _parent.RemoveChild(child.Node);
+        }
+
         public override string ToString() => 
             _parent?.ToString() ?? string.Empty;
     }

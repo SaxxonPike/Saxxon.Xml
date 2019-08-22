@@ -11,5 +11,7 @@ namespace Saxxon.Xml
         IFluentXmlElement CreateElement(string name);
 
         IFluentXmlComment CreateComment();
+        
+        void Remove(IFluentXmlObject node);
     }
 }

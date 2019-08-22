@@ -10,6 +10,32 @@ namespace Saxxon.Xml.Test
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
         [Test]
+        public void ChildSet_ShouldRemoveElement()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "  <child1></child1>" +
+                                  "  <child2></child2>" +
+                                  "</root>");
+            
+            // Act.
+            doc
+                .Root
+                .Children
+                .RemoveWhere(x => x.Name == "child1");
+            
+            // Assert.
+            doc
+                .Root
+                .Children
+                .Should()
+                .NotContain(x => x.Name == "child1")
+                .And
+                .Contain(x => x.Name == "child2");
+        }
+        
+        [Test]
         public void ChildSet_ShouldAddNewElement()
         {
             // Arrange.
@@ -19,9 +45,7 @@ namespace Saxxon.Xml.Test
 
             // Act.
             doc
-                .Children
-                .WithName("root")
-                .Single()
+                .Root
                 .Children
                 .AddElement("child1")
                 .AddElement("child2", "content")
@@ -29,40 +53,38 @@ namespace Saxxon.Xml.Test
 
             // Assert.
             doc
-                .Children
-                .WithName("root")
-                .Single()
-                .Scope(root =>
+                .Root
+                .Within(root =>
                 {
                     root
                         .Children
                         .WithName("child1")
                         .Single()
-                        .Scope(node =>
+                        .Within(node =>
                         {
                             node.Name.Should().Be("child1");
                             node.Value.Should().BeEmpty();
                         });
                 })
-                .Scope(root =>
+                .Within(root =>
                 {
                     root
                         .Children
                         .WithName("child2")
                         .Single()
-                        .Scope(node =>
+                        .Within(node =>
                         {
                             node.Name.Should().Be("child2");
                             node.Value.Should().Be("content");
                         });
                 })
-                .Scope(root =>
+                .Within(root =>
                 {
                     root
                         .Children
                         .WithName("child3")
                         .Single()
-                        .Scope(node =>
+                        .Within(node =>
                         {
                             node.Name.Should().Be("child3");
                             node.Value.Should().Be("test");
@@ -82,8 +104,7 @@ namespace Saxxon.Xml.Test
 
             // Assert.
             doc
-                .Children["root"]
-                .First()
+                .Root
                 .Children
                 .Select(x => x.Name)
                 .Should().Equal("child1", "child2");
@@ -99,8 +120,7 @@ namespace Saxxon.Xml.Test
 
             // Act.
             document
-                .Children
-                .WithName("root")
+                .Root
                 .ForEach(rootNode =>
                     rootNode.Attributes
                         .Add("testkey", "testvalue")
@@ -108,9 +128,7 @@ namespace Saxxon.Xml.Test
 
             // Assert.
             document
-                .Children
-                .WithName("root")
-                .Single()
+                .Root
                 .Attributes
                 .WithName("testkey")
                 .Single()

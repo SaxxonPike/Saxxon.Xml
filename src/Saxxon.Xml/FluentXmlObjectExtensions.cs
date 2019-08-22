@@ -33,7 +33,7 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static T Scope<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
+        public static T Within<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
         {
             setup(obj);
             return obj;

@@ -1,6 +1,7 @@
 // ReSharper disable UnusedMethodReturnValue.Global
 
 using System;
+using System.Linq;
 
 namespace Saxxon.Xml
 {
@@ -24,6 +25,14 @@ namespace Saxxon.Xml
         {
             var element = obj.CreateElement(name);
             setup(element);
+            return obj;
+        }
+
+        public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet obj,
+            Func<IFluentXmlObject, bool> predicate)
+        {
+            foreach (var node in obj.Where(predicate).ToArray())
+                obj.Remove(node);
             return obj;
         }
     }

@@ -48,5 +48,11 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _node.Add(comment);
             return (IFluentXmlComment) FluentSysXmlLinqFactory.Create(comment);
         }
+
+        public void Remove(IFluentXmlObject node)
+        {
+            if (node is FluentSysXmlLinqBase child && child.Node?.Parent == _node)
+                (child.Node as XNode)?.Remove();
+        }
     }
 }

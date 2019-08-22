@@ -29,8 +29,8 @@ namespace Saxxon.Xml.Test
 
             doc
                 .Declaration
-                .Scope(d => d.Encoding.Should().Be("ASCII"))
-                .Scope(d => d.Standalone.Should().Be("yes"));
+                .Within(d => d.Encoding.Should().Be("ASCII"))
+                .Within(d => d.Standalone.Should().Be("yes"));
         }
     }
 }
