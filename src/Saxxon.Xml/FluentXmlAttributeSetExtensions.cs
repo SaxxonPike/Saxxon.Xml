@@ -1,8 +1,8 @@
+// ReSharper disable UnusedMethodReturnValue.Global
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-// ReSharper disable UnusedMethodReturnValue.Global
 
 namespace Saxxon.Xml
 {

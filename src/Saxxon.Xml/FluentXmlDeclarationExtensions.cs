@@ -1,4 +1,6 @@
-namespace Saxxon.Xml.Impl
+// ReSharper disable UnusedMethodReturnValue.Global
+
+namespace Saxxon.Xml
 {
     public static class FluentXmlDeclarationExtensions
     {

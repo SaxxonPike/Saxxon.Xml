@@ -1,7 +1,6 @@
 using System.Xml;
 using FluentAssertions;
 using NUnit.Framework;
-using Saxxon.Xml.Impl;
 
 namespace Saxxon.Xml.Test
 {
