@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqDocument : FluentSysXmlLinqBase, IFluentXmlDocument
+    internal sealed class FluentSysXmlLinqDocument : FluentSysXmlLinqNodeBase, IFluentXmlDocument
     {
         private readonly XDocument _doc;
 
@@ -14,7 +14,8 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         public IFluentXmlDeclaration Declaration =>
             _doc?.Declaration == null ? null : new FluentSysXmlLinqDeclaration(_doc.Declaration);
 
-        public IFluentXmlObject Root => FluentSysXmlLinqFactory.Create(_doc?.Root);
+        public IFluentXmlNode Root =>
+            (IFluentXmlNode) FluentSysXmlLinqFactory.Create(_doc?.Root);
 
         public IFluentXmlEntitySet Entities => new FluentSysXmlLinqEntitySet();
 

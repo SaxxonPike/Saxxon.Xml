@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Saxxon.Xml.Impl.SysXml
 {
-    public class FluentSysXmlEntitySet : IFluentXmlEntitySet
+    internal sealed class FluentSysXmlEntitySet : IFluentXmlEntitySet
     {
         private readonly XmlDocument _doc;
 

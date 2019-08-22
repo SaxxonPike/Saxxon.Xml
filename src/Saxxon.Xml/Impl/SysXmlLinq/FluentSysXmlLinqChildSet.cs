@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqChildSet : IFluentXmlChildSet
+    internal sealed class FluentSysXmlLinqChildSet : IFluentXmlChildSet
     {
         private readonly XContainer _node;
 
@@ -19,22 +19,24 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             Enumerable
                 .Empty<XNode>();
 
-        public IEnumerator<IFluentXmlObject> GetEnumerator() =>
+        public IEnumerator<IFluentXmlNode> GetEnumerator() =>
             GetNodes()
                 .Select(FluentSysXmlLinqFactory.Create)
+                .Cast<IFluentXmlNode>()
                 .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
-        public IFluentXmlObject this[int index] =>
-            FluentSysXmlLinqFactory.Create(_node?.Nodes().Skip(index).Take(1).FirstOrDefault());
+        public IFluentXmlNode this[int index] =>
+            (IFluentXmlNode) FluentSysXmlLinqFactory.Create(_node?.Nodes().Skip(index).Take(1).FirstOrDefault());
 
-        public IEnumerable<IFluentXmlObject> this[string name] =>
+        public IEnumerable<IFluentXmlNode> this[string name] =>
             GetNodes()
                 .OfType<XElement>()
                 .Where(x => x.Name == name)
-                .Select(FluentSysXmlLinqFactory.Create);
+                .Select(FluentSysXmlLinqFactory.Create)
+                .Cast<IFluentXmlNode>();
 
         public IFluentXmlElement CreateElement(string name)
         {
@@ -50,9 +52,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             return (IFluentXmlComment) FluentSysXmlLinqFactory.Create(comment);
         }
 
-        public void Remove(IFluentXmlObject node)
+        public void Remove(IFluentXmlNode node)
         {
-            if (node is FluentSysXmlLinqBase child && child.Node?.Parent == _node)
+            if (node is FluentSysXmlLinqObjectBase child && child.Node?.Parent == _node)
                 (child.Node as XNode)?.Remove();
         }
 

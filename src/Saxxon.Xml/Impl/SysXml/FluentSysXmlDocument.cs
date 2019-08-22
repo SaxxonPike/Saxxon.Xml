@@ -21,7 +21,8 @@ namespace Saxxon.Xml.Impl.SysXml
             }
         }
 
-        public IFluentXmlObject Root => FluentSysXmlFactory.Create(_doc?.ChildNodes.OfType<XmlElement>().Single());
+        public IFluentXmlNode Root =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(_doc?.ChildNodes.OfType<XmlElement>().Single());
 
         public override XmlNode Node => _doc;
 

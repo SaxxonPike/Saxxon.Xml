@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 namespace Saxxon.Xml
 {
-    public interface IFluentXmlChildSet : IEnumerable<IFluentXmlObject>
+    public interface IFluentXmlChildSet : IEnumerable<IFluentXmlNode>
     {
-        IFluentXmlObject this[int index] { get; }
+        IFluentXmlNode this[int index] { get; }
 
-        IEnumerable<IFluentXmlObject> this[string name] { get; }
+        IEnumerable<IFluentXmlNode> this[string name] { get; }
 
         IFluentXmlElement CreateElement(string name);
 
         IFluentXmlComment CreateComment();
 
-        void Remove(IFluentXmlObject node);
+        void Remove(IFluentXmlNode node);
 
         IFluentXmlText CreateText();
     }

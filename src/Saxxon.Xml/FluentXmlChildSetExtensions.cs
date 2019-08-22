@@ -7,27 +7,27 @@ namespace Saxxon.Xml
 {
     public static class FluentXmlChildSetExtensions
     {
-        public static IFluentXmlChildSet AddComment(this IFluentXmlChildSet obj, string content)
+        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet obj, string content)
         {
             var comment = obj.CreateComment();
             comment.Value = content;
             return obj;
         }
 
-        public static IFluentXmlChildSet AddElement(this IFluentXmlChildSet obj, string name)
+        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet obj, Action<IFluentXmlComment> setup)
+        {
+            var comment = obj.CreateComment();
+            setup(comment);
+            return obj;
+        }
+
+        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet obj, string name)
         {
             obj.CreateElement(name);
             return obj;
         }
 
-        public static IFluentXmlChildSet AddElement(this IFluentXmlChildSet obj, string name, string value)
-        {
-            var element = obj.CreateElement(name);
-            element.Value = value;
-            return obj;
-        }
-
-        public static IFluentXmlChildSet AddElementUsing(this IFluentXmlChildSet obj, string name,
+        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet obj, string name,
             Action<IFluentXmlElement> setup)
         {
             var element = obj.CreateElement(name);
@@ -35,15 +35,22 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static IFluentXmlChildSet AddText(this IFluentXmlChildSet obj, string content)
+        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet obj, string content)
         {
             var text = obj.CreateText();
             text.Value = content;
             return obj;
         }
 
+        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet obj, Action<IFluentXmlText> setup)
+        {
+            var text = obj.CreateText();
+            setup(text);
+            return obj;
+        }
+
         public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet obj,
-            Func<IFluentXmlObject, bool> predicate)
+            Func<IFluentXmlNode, bool> predicate)
         {
             foreach (var node in obj.Where(predicate).ToArray())
                 obj.Remove(node);

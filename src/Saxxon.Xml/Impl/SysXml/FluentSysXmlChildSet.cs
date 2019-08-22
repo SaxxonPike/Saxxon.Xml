@@ -20,31 +20,23 @@ namespace Saxxon.Xml.Impl.SysXml
             Enumerable
                 .Empty<XmlNode>();
 
-        public IEnumerator<IFluentXmlObject> GetEnumerator() =>
+        public IEnumerator<IFluentXmlNode> GetEnumerator() =>
             GetNodes()
                 .Select(FluentSysXmlFactory.Create)
+                .Cast<IFluentXmlNode>()
                 .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
-        public IFluentXmlObject this[int index] =>
-            FluentSysXmlFactory.Create(_parent?.ChildNodes[index]);
+        public IFluentXmlNode this[int index] =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(_parent?.ChildNodes[index]);
 
-        public IEnumerable<IFluentXmlObject> this[string name] =>
+        public IEnumerable<IFluentXmlNode> this[string name] =>
             GetNodes()
                 .Where(x => x.Name == name)
-                .Select(FluentSysXmlFactory.Create);
-
-        public IFluentXmlElement CreateElement(string name)
-        {
-            var element = _parent?.OwnerDocument?.CreateElement(name);
-            if (element != null)
-                _parent.AppendChild(element);
-            else
-                return null;
-            return (IFluentXmlElement) FluentSysXmlFactory.Create(element);
-        }
+                .Select(FluentSysXmlFactory.Create)
+                .Cast<IFluentXmlNode>();
 
         public IFluentXmlComment CreateComment()
         {
@@ -56,7 +48,17 @@ namespace Saxxon.Xml.Impl.SysXml
             return (IFluentXmlComment) FluentSysXmlFactory.Create(comment);
         }
 
-        public void Remove(IFluentXmlObject node)
+        public IFluentXmlElement CreateElement(string name)
+        {
+            var element = _parent?.OwnerDocument?.CreateElement(name);
+            if (element != null)
+                _parent.AppendChild(element);
+            else
+                return null;
+            return (IFluentXmlElement) FluentSysXmlFactory.Create(element);
+        }
+
+        public void Remove(IFluentXmlNode node)
         {
             if (node is FluentSysXmlBase child)
                 _parent.RemoveChild(child.Node);

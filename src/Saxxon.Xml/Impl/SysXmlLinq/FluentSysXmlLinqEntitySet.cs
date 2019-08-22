@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqEntitySet : IFluentXmlEntitySet
+    internal sealed class FluentSysXmlLinqEntitySet : IFluentXmlEntitySet
     {
         public IEnumerator<IFluentXmlEntity> GetEnumerator() =>
             Enumerable.Empty<IFluentXmlEntity>().GetEnumerator();

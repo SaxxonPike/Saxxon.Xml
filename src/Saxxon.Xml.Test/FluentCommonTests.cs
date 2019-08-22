@@ -45,9 +45,9 @@ namespace Saxxon.Xml.Test
             document
                 .Root
                 .ForEach(rootNode =>
-                    rootNode.Attributes
-                        .Add("testkey", "testvalue")
-                        .Add("testkey2", "testvalue2"));
+                    rootNode
+                        .SetAttribute("testkey", "testvalue")
+                        .SetAttribute("testkey2", "testvalue2"));
 
             // Assert.
             document
@@ -125,8 +125,7 @@ namespace Saxxon.Xml.Test
             // Act.
             doc
                 .Root
-                .Children
-                .AddComment("some comment");
+                .AppendComment("some comment");
 
             // Assert.
             doc
@@ -150,8 +149,7 @@ namespace Saxxon.Xml.Test
             // Act.
             doc
                 .Root
-                .Children
-                .AddText("some text");
+                .AppendText("some text");
 
             // Assert.
             doc
@@ -175,10 +173,8 @@ namespace Saxxon.Xml.Test
             // Act.
             doc
                 .Root
-                .Children
-                .AddElement("child1")
-                .AddElement("child2", "content")
-                .AddElementUsing("child3", x => x.Value = "test");
+                .AppendElement("child1")
+                .AppendElement("child2", x => x.Value = "test");
 
             // Assert.
             doc
@@ -202,17 +198,6 @@ namespace Saxxon.Xml.Test
                         .Single().Use(node =>
                         {
                             node.Name.Should().Be("child2");
-                            node.Value.Should().Be("content");
-                        });
-                })
-                .Use(root =>
-                {
-                    root
-                        .Children
-                        .WithName("child3")
-                        .Single().Use(node =>
-                        {
-                            node.Name.Should().Be("child3");
                             node.Value.Should().Be("test");
                         });
                 });
@@ -235,8 +220,7 @@ namespace Saxxon.Xml.Test
             // Act.
             doc
                 .Root
-                .Children
-                .RemoveWhere(x => x.Name == "child1");
+                .RemoveChildrenWhere(x => x.Name == "child1");
 
             // Assert.
             doc

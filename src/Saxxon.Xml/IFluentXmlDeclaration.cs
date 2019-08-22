@@ -1,6 +1,6 @@
 namespace Saxxon.Xml
 {
-    public interface IFluentXmlDeclaration : IFluentXmlNode
+    public interface IFluentXmlDeclaration : IFluentXmlObject
     {
         string Encoding { get; set; }
 

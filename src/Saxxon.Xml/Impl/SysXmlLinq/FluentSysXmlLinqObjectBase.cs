@@ -3,25 +3,15 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal abstract class FluentSysXmlLinqBase : IFluentXmlObject, IFluentXmlWrappedObject<XObject>
+    internal abstract class FluentSysXmlLinqObjectBase : IFluentXmlObject, IFluentXmlWrappedObject<XObject>
     {
-        public virtual IFluentXmlObject Parent =>
-            FluentSysXmlLinqFactory.Create(Node?.Parent);
-
-        public virtual IFluentXmlChildSet Children =>
-            new FluentSysXmlLinqChildSet(Node as XContainer);
+        public virtual IFluentXmlNode Parent =>
+            (IFluentXmlNode) FluentSysXmlLinqFactory.Create(Node?.Parent);
 
         public virtual string Name =>
             (Node as XElement)?
             .Name
             .ToString();
-
-        public virtual string Xml =>
-            (Node as XNode)?
-            .ToString();
-
-        public virtual IFluentXmlAttributeSet Attributes =>
-            new FluentSysXmlLinqAttributeSet(Node as XElement);
 
         public virtual string Value
         {

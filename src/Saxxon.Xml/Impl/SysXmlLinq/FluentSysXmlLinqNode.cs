@@ -2,13 +2,15 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqNode : FluentSysXmlLinqBase, IFluentXmlNode
+    internal sealed class FluentSysXmlLinqNode : FluentSysXmlLinqNodeBase
     {
-        public FluentSysXmlLinqNode(XObject node)
+        private readonly XNode _node;
+
+        public FluentSysXmlLinqNode(XNode node)
         {
-            Node = node;
+            _node = node;
         }
 
-        public override XObject Node { get; }
+        public override XObject Node => _node;
     }
 }

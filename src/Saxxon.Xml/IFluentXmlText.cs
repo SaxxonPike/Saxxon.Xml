@@ -1,6 +1,6 @@
 namespace Saxxon.Xml
 {
-    public interface IFluentXmlText : IFluentXmlObject
+    public interface IFluentXmlText : IFluentXmlNode
     {
     }
 }

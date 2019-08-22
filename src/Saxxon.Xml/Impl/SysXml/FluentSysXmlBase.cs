@@ -4,8 +4,8 @@ namespace Saxxon.Xml.Impl.SysXml
 {
     internal abstract class FluentSysXmlBase : IFluentXmlObject, IFluentXmlWrappedObject<XmlNode>
     {
-        public virtual IFluentXmlObject Parent =>
-            FluentSysXmlFactory.Create(Node?.ParentNode);
+        public virtual IFluentXmlNode Parent =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.ParentNode);
 
         public virtual IFluentXmlChildSet Children =>
             new FluentSysXmlChildSet(Node);
@@ -45,5 +45,11 @@ namespace Saxxon.Xml.Impl.SysXml
 
         public override string ToString() =>
             Node?.OuterXml ?? string.Empty;
+
+        public IFluentXmlNode NextNode =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.NextSibling);
+
+        public IFluentXmlNode PreviousNode =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.PreviousSibling);
     }
 }

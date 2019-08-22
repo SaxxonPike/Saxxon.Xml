@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal class FluentSysXmlLinqAttributeSet : IFluentXmlAttributeSet
+    internal sealed class FluentSysXmlLinqAttributeSet : IFluentXmlAttributeSet
     {
         private readonly XElement _node;
 
