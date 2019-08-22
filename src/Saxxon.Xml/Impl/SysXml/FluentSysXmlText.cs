@@ -2,7 +2,7 @@ using System.Xml;
 
 namespace Saxxon.Xml.Impl.SysXml
 {
-    internal class FluentSysXmlText : FluentSysXmlBase, IFluentXmlText
+    internal sealed class FluentSysXmlText : FluentSysXmlBase, IFluentXmlText
     {
         private readonly XmlText _text;
 

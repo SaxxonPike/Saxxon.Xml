@@ -12,8 +12,8 @@ namespace Saxxon.Xml.Impl.SysXml
             Name = name;
         }
 
-        public override IFluentXmlObject Parent =>
-            FluentSysXmlFactory.Create(_parent);
+        public override IFluentXmlNode Parent =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(_parent);
 
         public override string Name { get; }
 

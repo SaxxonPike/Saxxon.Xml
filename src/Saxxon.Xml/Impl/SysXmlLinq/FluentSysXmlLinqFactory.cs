@@ -4,9 +4,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal static class FluentSysXmlLinqFactory
     {
-        public static IFluentXmlObject Create(XObject node)
+        public static IFluentXmlObject Create(XObject obj)
         {
-            switch (node)
+            switch (obj)
             {
                 case null:
                     return null;
@@ -20,8 +20,13 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
                     return new FluentSysXmlLinqElement(element);
                 case XText text:
                     return new FluentSysXmlLinqText(text);
-                default:
+
+                // the cases below are catch-all; use more specific ones first
+
+                case XNode node:
                     return new FluentSysXmlLinqNode(node);
+                default:
+                    return new FluentSysXmlLinqObject(obj);
             }
         }
     }

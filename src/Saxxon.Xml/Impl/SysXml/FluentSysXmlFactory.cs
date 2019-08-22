@@ -24,6 +24,9 @@ namespace Saxxon.Xml.Impl.SysXml
                     return new FluentSysXmlEntity(entity);
                 case XmlText text:
                     return new FluentSysXmlText(text);
+
+                // the cases below are catch-all; use more specific ones first
+
                 default:
                     return new FluentSysXmlNode(node);
             }
