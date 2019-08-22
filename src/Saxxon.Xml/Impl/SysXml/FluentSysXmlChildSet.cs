@@ -62,6 +62,16 @@ namespace Saxxon.Xml.Impl.SysXml
                 _parent.RemoveChild(child.Node);
         }
 
+        public IFluentXmlText CreateText()
+        {
+            var text = _parent?.OwnerDocument?.CreateTextNode(string.Empty);
+            if (text != null)
+                _parent.AppendChild(text);
+            else
+                return null;
+            return (IFluentXmlText) FluentSysXmlFactory.Create(text);
+        }
+
         public override string ToString() => 
             _parent?.ToString() ?? string.Empty;
     }

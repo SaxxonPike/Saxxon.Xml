@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
@@ -12,10 +11,12 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _doc = doc;
         }
 
-        public IFluentXmlDeclaration Declaration => 
+        public IFluentXmlDeclaration Declaration =>
             _doc?.Declaration == null ? null : new FluentSysXmlLinqDeclaration(_doc.Declaration);
 
         public IFluentXmlObject Root => FluentSysXmlLinqFactory.Create(_doc?.Root);
+
+        public IFluentXmlEntitySet Entities => new FluentSysXmlLinqEntitySet();
 
         public override XObject Node => _doc;
     }

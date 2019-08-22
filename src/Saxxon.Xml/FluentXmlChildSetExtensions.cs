@@ -35,6 +35,13 @@ namespace Saxxon.Xml
             return obj;
         }
 
+        public static IFluentXmlChildSet AddText(this IFluentXmlChildSet obj, string content)
+        {
+            var text = obj.CreateText();
+            text.Value = content;
+            return obj;
+        }
+
         public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet obj,
             Func<IFluentXmlObject, bool> predicate)
         {

@@ -1,7 +1,6 @@
 namespace Saxxon.Xml
 {
-    public interface IFluentXmlAttribute : IFluentXmlNode
+    public interface IFluentXmlAttribute : IFluentXmlObject
     {
-        string Value { get; set; }
     }
 }

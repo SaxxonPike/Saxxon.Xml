@@ -16,7 +16,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 
         public override XObject Node => _element?.Attribute(Name);
 
-        public string Value
+        public override string Value
         {
             get => _element.Attribute(Name)?.Value;
             set => _element.SetAttributeValue(Name, value);

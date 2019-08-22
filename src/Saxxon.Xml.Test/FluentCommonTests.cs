@@ -10,7 +10,7 @@ namespace Saxxon.Xml.Test
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
         [Test]
-        public void ChildSet_ShouldAddComment()
+        public void ChildSet_ShouldAddNewComment()
         {
             // Arrange.
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
@@ -22,7 +22,7 @@ namespace Saxxon.Xml.Test
                 .Root
                 .Children
                 .AddComment("some comment");
-            
+
             // Assert.
             doc
                 .Root
@@ -35,7 +35,32 @@ namespace Saxxon.Xml.Test
         }
 
         [Test]
-        public void ChildSet_ShouldRemoveElement()
+        public void ChildSet_ShouldAddNewText()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>");
+
+            // Act.
+            doc
+                .Root
+                .Children
+                .AddText("some text");
+
+            // Assert.
+            doc
+                .Root
+                .Children
+                .Single()
+                .As<IFluentXmlText>()
+                .Value
+                .Should()
+                .Be("some text");
+        }
+
+        [Test]
+        public void ChildSet_ShouldRemoveChild()
         {
             // Arrange.
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +

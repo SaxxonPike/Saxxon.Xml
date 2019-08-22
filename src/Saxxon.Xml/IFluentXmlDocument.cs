@@ -5,5 +5,7 @@ namespace Saxxon.Xml
         IFluentXmlDeclaration Declaration { get; }
         
         IFluentXmlObject Root { get; }
+        
+        IFluentXmlEntitySet Entities { get; }
     }
 }

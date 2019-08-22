@@ -36,6 +36,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
                     case XElement element:
                         element.SetValue(value);
                         break;
+                    case XText text:
+                        text.Value = value;
+                        break;
                     default:
                         throw new InvalidOperationException();
                 }

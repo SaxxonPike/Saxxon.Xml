@@ -55,5 +55,12 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             if (node is FluentSysXmlLinqBase child && child.Node?.Parent == _node)
                 (child.Node as XNode)?.Remove();
         }
+
+        public IFluentXmlText CreateText()
+        {
+            var text = new XText(string.Empty);
+            _node.Add(text);
+            return (IFluentXmlText) FluentSysXmlLinqFactory.Create(text);
+        }
     }
 }
