@@ -14,10 +14,10 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         public virtual IFluentXmlAttributeSet Attributes =>
             new FluentSysXmlLinqAttributeSet(Node as XElement);
 
-        public IFluentXmlNode NextNode =>
+        public IFluentXmlNode Next =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create((Node as XNode)?.NextNode);
 
-        public IFluentXmlNode PreviousNode =>
+        public IFluentXmlNode Previous =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create((Node as XNode)?.PreviousNode);
     }
 }

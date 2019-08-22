@@ -8,8 +8,8 @@ namespace Saxxon.Xml
 
         IFluentXmlAttributeSet Attributes { get; }
 
-        IFluentXmlNode NextNode { get; }
+        IFluentXmlNode Next { get; }
 
-        IFluentXmlNode PreviousNode { get; }
+        IFluentXmlNode Previous { get; }
     }
 }

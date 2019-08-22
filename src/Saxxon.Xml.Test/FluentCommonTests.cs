@@ -59,6 +59,23 @@ namespace Saxxon.Xml.Test
                 .Should().Be("testvalue");
         }
 
+        [Test]
+        public void AttributeSet_ShouldRemoveAttributes()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root attr1=\"test0\" attr2=\"test2\" attr3=\"test3\" attr4=\"test0\">" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .RemoveAttribute("attr2")
+                .Use(root => root.Attributes.Select(x => x.Name).Should().BeEquivalentTo("attr1", "attr3", "attr4"))
+                .RemoveAttributesWhere(attr => attr.Value == "test0")
+                .Use(root => root.Attributes.Select(x => x.Name).Should().BeEquivalentTo("attr3"));
+        }
+
         #endregion Add
 
         #endregion AttributeSet
@@ -240,6 +257,39 @@ namespace Saxxon.Xml.Test
 
         #endregion ChildSet
 
+        #region Node
+        
+        #region Navigation
+
+        [Test]
+        public void Node_ShouldNavigateNextAndPrevious()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "  <sibling1>" +
+                                  "    <descendant1>" +
+                                  "    </descendant1>" +
+                                  "  </sibling1>" +
+                                  "  <sibling2>" +
+                                  "  </sibling2>" +
+                                  "</root>");
+
+            // Assert
+            doc
+                .Root
+                .Children["sibling1"]
+                .Single()
+                .Next
+                .Use(node => { node.Name.Should().Be("sibling2"); })
+                .Previous
+                .Use(node => { node.Name.Should().Be("sibling1"); });
+        }
+        
+        #endregion Navigation
+        
+        #endregion Node
+        
         #region Text
 
         #region Fetch

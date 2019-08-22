@@ -46,10 +46,10 @@ namespace Saxxon.Xml.Impl.SysXml
         public override string ToString() =>
             Node?.OuterXml ?? string.Empty;
 
-        public IFluentXmlNode NextNode =>
+        public IFluentXmlNode Next =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.NextSibling);
 
-        public IFluentXmlNode PreviousNode =>
+        public IFluentXmlNode Previous =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.PreviousSibling);
     }
 }
