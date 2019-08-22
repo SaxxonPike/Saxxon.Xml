@@ -12,7 +12,7 @@ namespace Saxxon.Xml.Test
             var doc = xml != null ? XDocument.Parse(xml) : new XDocument();
             return doc.Fluent();
         }
-        
+
         [Test]
         public void Declaration_CanGetAndSetProperties()
         {
@@ -28,9 +28,9 @@ namespace Saxxon.Xml.Test
 
             doc
                 .Declaration
-                .Within(d => d.Encoding.Should().Be("ASCII"))
-                .Within(d => d.Standalone.Should().Be("yes"))
-                .Within(d => d.Version.Should().Be("1.1"));
+                .Use(d => d.Encoding.Should().Be("ASCII"))
+                .Use(d => d.Standalone.Should().Be("yes"))
+                .Use(d => d.Version.Should().Be("1.1"));
         }
     }
 }

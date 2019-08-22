@@ -43,7 +43,7 @@ namespace Saxxon.Xml.Impl.SysXml
             }
         }
 
-        public override string ToString() => 
+        public override string ToString() =>
             Node?.OuterXml ?? string.Empty;
     }
 }

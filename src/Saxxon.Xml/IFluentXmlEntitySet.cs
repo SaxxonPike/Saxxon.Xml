@@ -4,6 +4,5 @@ namespace Saxxon.Xml
 {
     public interface IFluentXmlEntitySet : IEnumerable<IFluentXmlEntity>
     {
-        
     }
 }

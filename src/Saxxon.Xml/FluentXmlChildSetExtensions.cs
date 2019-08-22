@@ -13,7 +13,7 @@ namespace Saxxon.Xml
             comment.Value = content;
             return obj;
         }
-        
+
         public static IFluentXmlChildSet AddElement(this IFluentXmlChildSet obj, string name)
         {
             obj.CreateElement(name);

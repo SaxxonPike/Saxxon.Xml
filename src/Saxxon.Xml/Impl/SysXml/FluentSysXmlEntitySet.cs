@@ -24,7 +24,7 @@ namespace Saxxon.Xml.Impl.SysXml
                 .Cast<IFluentXmlEntity>()
                 .GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => 
+        IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
     }
 }

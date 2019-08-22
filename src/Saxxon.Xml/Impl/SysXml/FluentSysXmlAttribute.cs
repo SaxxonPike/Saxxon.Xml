@@ -28,11 +28,11 @@ namespace Saxxon.Xml.Impl.SysXml
             set
             {
                 var existing = _parent?.Attributes?.GetNamedItem(Name);
-                
+
                 if (existing == null && value != null)
                 {
                     var newNode = _parent?.OwnerDocument?.CreateAttribute(Name);
-                    if (newNode == null) 
+                    if (newNode == null)
                         return;
 
                     newNode.Value = value;

@@ -13,7 +13,7 @@ namespace Saxxon.Xml.Impl.SysXml
         {
             _owner = owner;
         }
-        
+
         private IEnumerable<XmlAttribute> GetNodes() =>
             _owner?.Attributes?
                 .Cast<XmlAttribute>() ??

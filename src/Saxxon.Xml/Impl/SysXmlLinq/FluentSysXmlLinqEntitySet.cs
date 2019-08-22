@@ -7,10 +7,10 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal class FluentSysXmlLinqEntitySet : IFluentXmlEntitySet
     {
-        public IEnumerator<IFluentXmlEntity> GetEnumerator() => 
+        public IEnumerator<IFluentXmlEntity> GetEnumerator() =>
             Enumerable.Empty<IFluentXmlEntity>().GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => 
+        IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
     }
 }

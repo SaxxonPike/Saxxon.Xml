@@ -15,7 +15,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             (Node as XElement)?
             .Name
             .ToString();
-        
+
         public virtual string Xml =>
             (Node as XNode)?
             .ToString();
@@ -47,7 +47,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 
         public abstract XObject Node { get; }
 
-        public override string ToString() => 
+        public override string ToString() =>
             Node?.ToString() ?? string.Empty;
     }
 }

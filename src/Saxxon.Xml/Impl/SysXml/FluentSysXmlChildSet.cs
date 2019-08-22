@@ -72,7 +72,7 @@ namespace Saxxon.Xml.Impl.SysXml
             return (IFluentXmlText) FluentSysXmlFactory.Create(text);
         }
 
-        public override string ToString() => 
+        public override string ToString() =>
             _parent?.ToString() ?? string.Empty;
     }
 }

@@ -9,6 +9,111 @@ namespace Saxxon.Xml.Test
     {
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
+        #region AttributeSet
+
+        #region Fetch
+
+        [Test]
+        public void AttributeSet_ShouldReturnAttributes()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root myattr1=\"val1\" myattr2=\"\" myattr3=\"val3\">" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .Use(root => root.Attributes["myattr1"].Value.Should().Be("val1"))
+                .Use(root => root.Attributes["myattr2"].Value.Should().Be(string.Empty))
+                .Use(root => root.Attributes["myattr3"].Value.Should().Be("val3"));
+        }
+
+        #endregion Fetch
+
+        #region Add
+
+        [Test]
+        public void AttributeSet_ShouldAddNewAttribute()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root>" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .ForEach(rootNode =>
+                    rootNode.Attributes
+                        .Add("testkey", "testvalue")
+                        .Add("testkey2", "testvalue2"));
+
+            // Assert.
+            document
+                .Root
+                .Attributes
+                .WithName("testkey")
+                .Single()
+                .Value
+                .Should().Be("testvalue");
+        }
+
+        #endregion Add
+
+        #endregion AttributeSet
+
+        #region ChildSet
+
+        #region Fetch
+
+        [Test]
+        public void ChildSet_ShouldReturnCorrectElements()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "  <child1></child1>" +
+                                  "  <child2>text1<!--comment-->text2</child2>" +
+                                  "  <child3><child4></child4></child3>" +
+                                  "</root>");
+
+            // Assert.
+            doc
+                .Root
+                .Use(x => x.Children[0].Use(c =>
+                {
+                    c.Name.Should().Be("child1");
+                    c.Children.Should().BeEmpty();
+                }))
+                .Use(x => x.Children[1].Use(c =>
+                {
+                    c.Name.Should().Be("child2");
+                    c.Children.Should().HaveCount(3);
+                    c.Children[0]
+                        .As<IFluentXmlText>()
+                        .Value.Should().Be("text1");
+                    c.Children[1]
+                        .As<IFluentXmlComment>()
+                        .Value.Should().Be("comment");
+                    c.Children[2]
+                        .As<IFluentXmlText>()
+                        .Value.Should().Be("text2");
+                }))
+                .Use(x => x.Children[2].Use(c =>
+                {
+                    c.Name.Should().Be("child3");
+                    c.Children.Should().HaveCount(1);
+                    c.Children[0]
+                        .As<IFluentXmlElement>()
+                        .Name.Should().Be("child4");
+                }));
+        }
+
+        #endregion Fetch
+
+        #region Add
+
         [Test]
         public void ChildSet_ShouldAddNewComment()
         {
@@ -60,6 +165,64 @@ namespace Saxxon.Xml.Test
         }
 
         [Test]
+        public void ChildSet_ShouldAddNewElement()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>");
+
+            // Act.
+            doc
+                .Root
+                .Children
+                .AddElement("child1")
+                .AddElement("child2", "content")
+                .AddElementUsing("child3", x => x.Value = "test");
+
+            // Assert.
+            doc
+                .Root
+                .Use(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child1")
+                        .Single().Use(node =>
+                        {
+                            node.Name.Should().Be("child1");
+                            node.Value.Should().BeEmpty();
+                        });
+                })
+                .Use(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child2")
+                        .Single().Use(node =>
+                        {
+                            node.Name.Should().Be("child2");
+                            node.Value.Should().Be("content");
+                        });
+                })
+                .Use(root =>
+                {
+                    root
+                        .Children
+                        .WithName("child3")
+                        .Single().Use(node =>
+                        {
+                            node.Name.Should().Be("child3");
+                            node.Value.Should().Be("test");
+                        });
+                });
+        }
+
+        #endregion Add
+
+        #region Remove
+
+        [Test]
         public void ChildSet_ShouldRemoveChild()
         {
             // Arrange.
@@ -85,105 +248,56 @@ namespace Saxxon.Xml.Test
                 .Contain(x => x.Name == "child2");
         }
 
+        #endregion Remove
+
+        #region Update
+
+        #endregion Update
+
+        #endregion ChildSet
+
+        #region Text
+
+        #region Fetch
+
         [Test]
-        public void ChildSet_ShouldAddNewElement()
+        public void Text_ShouldHaveCorrectValue()
         {
             // Arrange.
             var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                   "<root>" +
-                                  "</root>");
-
-            // Act.
-            doc
-                .Root
-                .Children
-                .AddElement("child1")
-                .AddElement("child2", "content")
-                .AddElementUsing("child3", x => x.Value = "test");
-
-            // Assert.
-            doc
-                .Root
-                .Within(root =>
-                {
-                    root
-                        .Children
-                        .WithName("child1")
-                        .Single()
-                        .Within(node =>
-                        {
-                            node.Name.Should().Be("child1");
-                            node.Value.Should().BeEmpty();
-                        });
-                })
-                .Within(root =>
-                {
-                    root
-                        .Children
-                        .WithName("child2")
-                        .Single()
-                        .Within(node =>
-                        {
-                            node.Name.Should().Be("child2");
-                            node.Value.Should().Be("content");
-                        });
-                })
-                .Within(root =>
-                {
-                    root
-                        .Children
-                        .WithName("child3")
-                        .Single()
-                        .Within(node =>
-                        {
-                            node.Name.Should().Be("child3");
-                            node.Value.Should().Be("test");
-                        });
-                });
-        }
-
-        [Test]
-        public void ChildSet_ShouldReturnCorrectElements()
-        {
-            // Arrange.
-            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                                  "<root>" +
-                                  "  <child1></child1>" +
-                                  "  <child2></child2>" +
+                                  "test text" +
                                   "</root>");
 
             // Assert.
             doc
                 .Root
-                .Children
-                .Select(x => x.Name)
-                .Should().Equal("child1", "child2");
-        }
-
-        [Test]
-        public void AttributeSet_ShouldAddNewAttribute()
-        {
-            // Arrange.
-            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                                       "<root>" +
-                                       "</root>");
-
-            // Act.
-            document
-                .Root
-                .ForEach(rootNode =>
-                    rootNode.Attributes
-                        .Add("testkey", "testvalue")
-                        .Add("testkey2", "testvalue2"));
-
-            // Assert.
-            document
-                .Root
-                .Attributes
-                .WithName("testkey")
-                .Single()
+                .Children[0]
                 .Value
-                .Should().Be("testvalue");
+                .Should()
+                .Be("test text");
         }
+
+        [Test]
+        public void Text_ShouldBeSplitCorrectly()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "test" +
+                                  "<divider></divider>" +
+                                  "text" +
+                                  "</root>");
+
+            // Assert.
+            doc
+                .Root
+                .Use(root => root.Children[0].Value.Should().Be("test"))
+                .Use(root => root.Children[2].Value.Should().Be("text"));
+        }
+
+        #endregion Fetch
+
+        #endregion Text
     }
 }

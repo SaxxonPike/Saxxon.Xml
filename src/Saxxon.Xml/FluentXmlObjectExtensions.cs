@@ -8,14 +8,14 @@ namespace Saxxon.Xml
 {
     public static class FluentXmlObjectExtensions
     {
-        public static T ForEach<T>(this T obj, Action<T> scope) 
+        public static T ForEach<T>(this T obj, Action<T> scope)
             where T : IFluentXmlObject
         {
             scope(obj);
             return obj;
         }
-        
-        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> obj, Action<T> scope) 
+
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> obj, Action<T> scope)
             where T : IFluentXmlObject
         {
             foreach (var node in obj)
@@ -24,7 +24,7 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject => 
+        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject =>
             obj.Where(x => x.Name == name);
 
         public static IFluentXmlObject SetValue(this IFluentXmlObject obj, string value)
@@ -33,7 +33,7 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static T Within<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
+        public static T Use<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
         {
             setup(obj);
             return obj;
