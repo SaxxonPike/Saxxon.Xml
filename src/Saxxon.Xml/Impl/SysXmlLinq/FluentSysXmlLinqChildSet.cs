@@ -14,10 +14,10 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _node = node;
         }
 
-        private IEnumerable<XElement> GetNodes() =>
-            _node?.Nodes().OfType<XElement>() ??
+        private IEnumerable<XNode> GetNodes() =>
+            _node?.Nodes() ??
             Enumerable
-                .Empty<XElement>();
+                .Empty<XNode>();
 
         public IEnumerator<IFluentXmlObject> GetEnumerator() =>
             GetNodes()
@@ -32,6 +32,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 
         public IEnumerable<IFluentXmlObject> this[string name] =>
             GetNodes()
+                .OfType<XElement>()
                 .Where(x => x.Name == name)
                 .Select(FluentSysXmlLinqFactory.Create);
 

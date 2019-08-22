@@ -11,6 +11,12 @@ namespace Saxxon.Xml.Impl.SysXml
             _comment = comment;
         }
 
+//        public override string Value
+//        {
+//            get => _comment.Value;
+//            set => _comment.Value = value;
+//        }
+        
         public override XmlNode Node => _comment;
     }
 }

@@ -10,6 +10,31 @@ namespace Saxxon.Xml.Test
         protected abstract IFluentXmlDocument GetDocument(string xml = null);
 
         [Test]
+        public void ChildSet_ShouldAddComment()
+        {
+            // Arrange.
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>");
+
+            // Act.
+            doc
+                .Root
+                .Children
+                .AddComment("some comment");
+            
+            // Assert.
+            doc
+                .Root
+                .Children
+                .Single()
+                .As<IFluentXmlComment>()
+                .Value
+                .Should()
+                .Be("some comment");
+        }
+
+        [Test]
         public void ChildSet_ShouldRemoveElement()
         {
             // Arrange.
@@ -18,13 +43,13 @@ namespace Saxxon.Xml.Test
                                   "  <child1></child1>" +
                                   "  <child2></child2>" +
                                   "</root>");
-            
+
             // Act.
             doc
                 .Root
                 .Children
                 .RemoveWhere(x => x.Name == "child1");
-            
+
             // Assert.
             doc
                 .Root
@@ -34,7 +59,7 @@ namespace Saxxon.Xml.Test
                 .And
                 .Contain(x => x.Name == "child2");
         }
-        
+
         [Test]
         public void ChildSet_ShouldAddNewElement()
         {
@@ -91,7 +116,7 @@ namespace Saxxon.Xml.Test
                         });
                 });
         }
-        
+
         [Test]
         public void ChildSet_ShouldReturnCorrectElements()
         {
@@ -115,8 +140,8 @@ namespace Saxxon.Xml.Test
         {
             // Arrange.
             var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                                  "<root>" +
-                                  "</root>");
+                                       "<root>" +
+                                       "</root>");
 
             // Act.
             document

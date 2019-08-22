@@ -28,10 +28,17 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             get => (Node as XElement)?.Value;
             set
             {
-                if (Node is XElement element)
-                    element.SetValue(value);
-                else
-                    throw new InvalidOperationException();
+                switch (Node)
+                {
+                    case XComment comment:
+                        comment.Value = value;
+                        break;
+                    case XElement element:
+                        element.SetValue(value);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
         }
 

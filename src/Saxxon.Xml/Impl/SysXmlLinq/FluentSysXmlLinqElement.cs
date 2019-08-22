@@ -12,5 +12,11 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         }
 
         public override XObject Node => _element;
+
+        public override string Value
+        {
+            get => _element.Value;
+            set => _element.Value = value;
+        }
     }
 }

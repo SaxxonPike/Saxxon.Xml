@@ -7,6 +7,13 @@ namespace Saxxon.Xml
 {
     public static class FluentXmlChildSetExtensions
     {
+        public static IFluentXmlChildSet AddComment(this IFluentXmlChildSet obj, string content)
+        {
+            var comment = obj.CreateComment();
+            comment.Value = content;
+            return obj;
+        }
+        
         public static IFluentXmlChildSet AddElement(this IFluentXmlChildSet obj, string name)
         {
             obj.CreateElement(name);
