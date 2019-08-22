@@ -40,7 +40,7 @@ document
 
 ### Manipulation
 
-Add text and comments to an existing node.
+Append text and comments to an existing node.
 
 ```c#
 // this produces, inside the first child node:
@@ -51,14 +51,14 @@ document
     .Root
     .Children
     .First()    // LINQ
-    .AddText("some example test")
-    .AddComment("this is my comment")
-    .AddText("some more text")
+    .AppendText("some example test")
+    .AppendComment("this is my comment")
+    .AppendText("some more text")
 ```
 
 ### Scoping
 
-Whenever new nodes are created, such as with `AddText` or `AddComment`, a scope can be provided
+Whenever new nodes are created, such as with `AppendText` or `AppendComment`, a scope can be provided
 that will allow further customization of the newly created node.
 
 ```c#
@@ -68,11 +68,11 @@ that will allow further customization of the newly created node.
 document
     .Fluent()
     .Root
-    .AddElement("MyElement", element =>
+    .AppendElement("MyElement", element =>
     {
         element
-            .AddText("this text lives inside")
-            .AddComment("this comment lives inside too");
+            .AppendText("this text lives inside")
+            .AppendComment("this comment lives inside too");
     });
 ```
 
@@ -85,11 +85,12 @@ document
     .Root
     .Use(root =>
     {
-        root.AddComment("this comment lives in the root node");
-        root.AddComment("this one does also);
+        root
+            .AppendComment("this comment lives in the root node")
+            .AppendComment("this one does also");
     })
-    .AddElement("MyNode", node =>
+    .AppendElement("MyNode", node =>
     {
-        node.AddText("this text lives in the newly created node");
+        node.AppendText("this text lives in the newly created node");
     });
 ```
