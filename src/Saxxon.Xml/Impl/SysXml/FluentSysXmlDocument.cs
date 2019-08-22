@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Xml;
 
 namespace Saxxon.Xml.Impl.SysXml
@@ -9,6 +10,15 @@ namespace Saxxon.Xml.Impl.SysXml
         public FluentSysXmlDocument(XmlDocument doc)
         {
             _doc = doc;
+        }
+
+        public IFluentXmlDeclaration Declaration
+        {
+            get
+            {
+                var declaration = _doc.ChildNodes.OfType<XmlDeclaration>().FirstOrDefault();
+                return declaration == null ? null : new FluentSysXmlDeclaration(declaration);
+            }
         }
 
         public override XmlNode Node => _doc;

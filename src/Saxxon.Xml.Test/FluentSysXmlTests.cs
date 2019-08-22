@@ -1,4 +1,7 @@
 using System.Xml;
+using FluentAssertions;
+using NUnit.Framework;
+using Saxxon.Xml.Impl;
 
 namespace Saxxon.Xml.Test
 {
@@ -10,6 +13,24 @@ namespace Saxxon.Xml.Test
             if (xml != null)
                 doc.LoadXml(xml);
             return doc.Fluent();
+        }
+
+        [Test]
+        public void Declaration_CanGetAndSetProperties()
+        {
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>");
+
+            doc
+                .Declaration
+                .SetEncoding("ASCII")
+                .SetStandalone("yes");
+
+            doc
+                .Declaration
+                .Scope(d => d.Encoding.Should().Be("ASCII"))
+                .Scope(d => d.Standalone.Should().Be("yes"));
         }
     }
 }
