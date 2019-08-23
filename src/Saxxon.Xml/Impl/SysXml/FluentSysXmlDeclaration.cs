@@ -5,10 +5,6 @@ namespace Saxxon.Xml.Impl.SysXml
 {
     internal sealed class FluentSysXmlDeclaration : FluentSysXmlBase, IFluentXmlDeclaration
     {
-        // System.Xml is particularly interesting because the Declaration
-        // is represented as a child of the document, which is contrary to
-        // how it exists in the XML specification itself.
-
         private readonly XmlDeclaration _declaration;
 
         public FluentSysXmlDeclaration(XmlDeclaration declaration)

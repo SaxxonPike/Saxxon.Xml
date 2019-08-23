@@ -4,6 +4,11 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal sealed class FluentSysXmlLinqDeclaration : FluentSysXmlLinqObjectBase, IFluentXmlDeclaration
     {
+        // XDeclaration does *not* derive from XObject, making
+        // this a particularly interesting case. We still treat it
+        // as if it were like an XObject so that the difference
+        // is entirely invisible to the end user.
+        
         private readonly XDeclaration _declaration;
 
         public FluentSysXmlLinqDeclaration(XDeclaration declaration)
