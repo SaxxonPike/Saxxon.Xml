@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlChildSetExtensions
+    public static partial class FluentXmlExtensions
     {
         public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet obj, string content)
         {

@@ -2,7 +2,7 @@
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlTextExtensions
+    public static partial class FluentXmlExtensions
     {
         public static IFluentXmlText SetText(this IFluentXmlText obj, string content)
         {

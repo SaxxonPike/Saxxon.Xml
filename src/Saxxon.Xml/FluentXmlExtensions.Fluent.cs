@@ -7,7 +7,7 @@ using Saxxon.Xml.Impl.SysXmlLinq;
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlFacade
+    public static partial class FluentXmlExtensions
     {
         // System.Xml
 

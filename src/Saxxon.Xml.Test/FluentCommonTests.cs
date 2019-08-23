@@ -258,7 +258,7 @@ namespace Saxxon.Xml.Test
         #endregion ChildSet
 
         #region Node
-        
+
         #region Navigation
 
         [Test]
@@ -285,11 +285,75 @@ namespace Saxxon.Xml.Test
                 .Previous
                 .Use(node => { node.Name.Should().Be("sibling1"); });
         }
-        
+
         #endregion Navigation
-        
+
+        #region Replace
+
+        [Test]
+        public void Node_ShouldSetXml()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root>" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .SetXml("<test></test>");
+            
+            // Assert.
+            document
+                .Root
+                .Children
+                .Single()
+                .Name
+                .Should().Be("test");
+        }
+
+        [Test]
+        public void Node_ShouldSetXmlByText()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root>" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .SetXml("text node");
+            
+            // Assert.
+            document
+                .Root
+                .Children
+                .Single()
+                .Value
+                .Should().Be("text node");
+        }
+
+        [Test]
+        public void Node_ShouldGetXml()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root>" +
+                                       "<test>content</test>" +
+                                       "</root>");
+            
+            // Act.
+            document
+                .Root
+                .Xml
+                .Should().Be("<test>content</test>");
+        }
+
+        #endregion Replace
+
         #endregion Node
-        
+
         #region Text
 
         #region Fetch

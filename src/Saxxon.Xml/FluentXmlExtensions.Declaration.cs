@@ -2,7 +2,7 @@
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlDeclarationExtensions
+    public static partial class FluentXmlExtensions
     {
         public static IFluentXmlDeclaration SetVersion(this IFluentXmlDeclaration obj, string value)
         {

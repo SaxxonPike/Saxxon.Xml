@@ -2,7 +2,7 @@ namespace Saxxon.Xml
 {
     public interface IFluentXmlNode : IFluentXmlObject
     {
-        string Xml { get; }
+        string Xml { get; set; }
 
         IFluentXmlChildSet Children { get; }
 

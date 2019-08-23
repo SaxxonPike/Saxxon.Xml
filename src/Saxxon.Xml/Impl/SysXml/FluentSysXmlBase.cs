@@ -14,8 +14,15 @@ namespace Saxxon.Xml.Impl.SysXml
             (Node)?
             .Name;
 
-        public virtual string Xml =>
-            (Node)?.InnerXml;
+        public virtual string Xml
+        {
+            get => Node?.InnerXml;
+            set
+            {
+                if (Node is XmlNode node)
+                    node.InnerXml = value;
+            }
+        }
 
         public virtual IFluentXmlAttributeSet Attributes =>
             new FluentSysXmlAttributeSet(Node);
@@ -44,7 +51,7 @@ namespace Saxxon.Xml.Impl.SysXml
         }
 
         public override string ToString() =>
-            Node?.OuterXml ?? string.Empty;
+            Node?.OuterXml ?? "<!--null-->";
 
         public IFluentXmlNode Next =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.NextSibling);

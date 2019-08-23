@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlObjectExtensions
+    public static partial class FluentXmlExtensions
     {
         public static T AppendComment<T>(this T obj, string content) where T : IFluentXmlNode
         {
@@ -75,6 +75,20 @@ namespace Saxxon.Xml
             where T : IFluentXmlNode
         {
             obj?.Attributes.Set(name, setup);
+            return obj;
+        }
+
+        public static T SetValue<T>(this T obj, string value) where T : IFluentXmlObject
+        {
+            if (obj != null)
+                obj.Value = value;
+            return obj;
+        }
+
+        public static T SetXml<T>(this T obj, string value) where T : IFluentXmlNode
+        {
+            if (obj != null)
+                obj.Xml = value;
             return obj;
         }
 

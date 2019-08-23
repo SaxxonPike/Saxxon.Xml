@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Saxxon.Xml
 {
-    public static class FluentXmlAttributeSetExtensions
+    public static partial class FluentXmlExtensions
     {
         public static IFluentXmlAttributeSet Remove(this IFluentXmlAttributeSet obj, string name)
         {
