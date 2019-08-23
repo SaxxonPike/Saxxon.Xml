@@ -35,5 +35,13 @@ namespace Saxxon.Xml.Impl.SysXml
         public IEnumerable<string> Keys =>
             GetNodes()
                 .Select(x => x.Name);
+
+        public override string ToString()
+        {
+            var nodes = _owner?.ChildNodes.OfType<XmlAttribute>().Select(e => e.OuterXml);
+            return nodes == null
+                ? "<!--null-->"
+                : string.Join(string.Empty, nodes);
+        }
     }
 }

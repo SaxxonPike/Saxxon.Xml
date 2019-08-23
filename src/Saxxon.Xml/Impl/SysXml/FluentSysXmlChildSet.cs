@@ -16,7 +16,7 @@ namespace Saxxon.Xml.Impl.SysXml
 
         private IEnumerable<XmlNode> GetNodes() =>
             _parent?.ChildNodes
-                .Cast<XmlNode>() ??
+                .OfType<XmlNode>() ??
             Enumerable
                 .Empty<XmlNode>();
 
@@ -74,7 +74,12 @@ namespace Saxxon.Xml.Impl.SysXml
             return (IFluentXmlText) FluentSysXmlFactory.Create(text);
         }
 
-        public override string ToString() =>
-            _parent?.ToString() ?? string.Empty;
+        public override string ToString()
+        {
+            var nodes = _parent?.ChildNodes.OfType<XmlNode>().Select(e => e.OuterXml);
+            return nodes == null
+                ? "<!--null-->"
+                : string.Join(string.Empty, nodes);
+        }
     }
 }

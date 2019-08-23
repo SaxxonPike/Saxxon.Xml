@@ -2,7 +2,7 @@ using System.Xml;
 
 namespace Saxxon.Xml.Impl.SysXml
 {
-    internal abstract class FluentSysXmlBase : IFluentXmlObject, IFluentXmlWrappedObject<XmlNode>
+    internal abstract class FluentSysXmlBase : IFluentXmlObject
     {
         public virtual IFluentXmlNode Parent =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(Node?.ParentNode);
@@ -13,6 +13,10 @@ namespace Saxxon.Xml.Impl.SysXml
         public virtual string Name =>
             (Node)?
             .Name;
+
+        public string Namespace =>
+            (Node)?
+            .GetPrefixOfNamespace(Node.NamespaceURI);
 
         public virtual string Xml
         {

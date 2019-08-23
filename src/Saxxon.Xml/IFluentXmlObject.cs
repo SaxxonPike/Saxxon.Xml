@@ -5,6 +5,8 @@ namespace Saxxon.Xml
         IFluentXmlNode Parent { get; }
 
         string Name { get; }
+        
+        string Namespace { get; }
 
         string Value { get; set; }
     }

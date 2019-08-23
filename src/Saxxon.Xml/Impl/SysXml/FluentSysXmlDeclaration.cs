@@ -43,5 +43,10 @@ namespace Saxxon.Xml.Impl.SysXml
             get => _declaration?.Version;
             set => throw new NotSupportedException("XmlDeclaration does not support setting Version.");
         }
+
+        public override string ToString()
+        {
+            return _declaration?.OuterXml ?? "<!--null-->";
+        }
     }
 }

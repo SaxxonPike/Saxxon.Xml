@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
 {
-    internal abstract class FluentSysXmlLinqObjectBase : IFluentXmlObject, IFluentXmlWrappedObject<XObject>
+    internal abstract class FluentSysXmlLinqObjectBase : IFluentXmlObject
     {
         public virtual IFluentXmlNode Parent =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create(Node?.Parent);
@@ -12,6 +12,10 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             (Node as XElement)?
             .Name
             .ToString();
+
+        public string Namespace =>
+            (Node as XElement)?
+            .GetPrefixOfNamespace((Node as XElement).Name.Namespace);
 
         public virtual string Value
         {

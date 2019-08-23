@@ -26,5 +26,13 @@ namespace Saxxon.Xml.Impl.SysXml
 
         IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
+
+        public override string ToString()
+        {
+            var nodes = _doc?.ChildNodes.OfType<XmlEntity>().Select(e => e.OuterXml);
+            return nodes == null
+                ? "<!--null-->"
+                : string.Join(string.Empty, nodes);
+        }
     }
 }

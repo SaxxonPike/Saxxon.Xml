@@ -12,5 +12,11 @@ namespace Saxxon.Xml.Impl.SysXml
         }
 
         public override XmlNode Node => _entity;
+
+        public string SystemId => _entity.SystemId;
+
+        public string PublicId => _entity.PublicId;
+
+        public string NotationName => _entity.NotationName;
     }
 }
