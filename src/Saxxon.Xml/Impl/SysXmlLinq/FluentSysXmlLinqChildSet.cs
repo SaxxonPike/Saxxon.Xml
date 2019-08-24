@@ -14,19 +14,18 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _node = node;
         }
 
-        private IEnumerable<XNode> GetNodes() =>
-            _node?.Nodes() ??
-            Enumerable
-                .Empty<XNode>();
-
-        public IEnumerator<IFluentXmlNode> GetEnumerator() =>
-            GetNodes()
+        public IEnumerator<IFluentXmlNode> GetEnumerator()
+        {
+            return GetNodes()
                 .Select(FluentSysXmlLinqFactory.Create)
                 .Cast<IFluentXmlNode>()
                 .GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         public IFluentXmlNode this[int index] =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create(_node?.Nodes().Skip(index).Take(1).FirstOrDefault());
@@ -63,6 +62,13 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             var text = new XText(string.Empty);
             _node.Add(text);
             return (IFluentXmlText) FluentSysXmlLinqFactory.Create(text);
+        }
+
+        private IEnumerable<XNode> GetNodes()
+        {
+            return _node?.Nodes() ??
+                   Enumerable
+                       .Empty<XNode>();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         }
 
         public override XObject Node => _docType;
-        
+
         public string SystemId
         {
             get => _docType.SystemId;

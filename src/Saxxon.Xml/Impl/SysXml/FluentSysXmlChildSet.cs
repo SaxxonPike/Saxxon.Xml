@@ -14,20 +14,18 @@ namespace Saxxon.Xml.Impl.SysXml
             _parent = parent;
         }
 
-        private IEnumerable<XmlNode> GetNodes() =>
-            _parent?.ChildNodes
-                .OfType<XmlNode>() ??
-            Enumerable
-                .Empty<XmlNode>();
-
-        public IEnumerator<IFluentXmlNode> GetEnumerator() =>
-            GetNodes()
+        public IEnumerator<IFluentXmlNode> GetEnumerator()
+        {
+            return GetNodes()
                 .Select(FluentSysXmlFactory.Create)
                 .Cast<IFluentXmlNode>()
                 .GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         public IFluentXmlNode this[int index] =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(_parent?.ChildNodes[index]);
@@ -72,6 +70,14 @@ namespace Saxxon.Xml.Impl.SysXml
             else
                 return null;
             return (IFluentXmlText) FluentSysXmlFactory.Create(text);
+        }
+
+        private IEnumerable<XmlNode> GetNodes()
+        {
+            return _parent?.ChildNodes
+                       .OfType<XmlNode>() ??
+                   Enumerable
+                       .Empty<XmlNode>();
         }
 
         public override string ToString()

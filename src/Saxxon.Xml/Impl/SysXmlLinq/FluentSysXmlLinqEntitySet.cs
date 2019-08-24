@@ -6,10 +6,14 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal sealed class FluentSysXmlLinqEntitySet : IFluentXmlEntitySet
     {
-        public IEnumerator<IFluentXmlEntity> GetEnumerator() =>
-            Enumerable.Empty<IFluentXmlEntity>().GetEnumerator();
+        public IEnumerator<IFluentXmlEntity> GetEnumerator()
+        {
+            return Enumerable.Empty<IFluentXmlEntity>().GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

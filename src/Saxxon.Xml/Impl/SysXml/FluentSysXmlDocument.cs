@@ -12,6 +12,8 @@ namespace Saxxon.Xml.Impl.SysXml
             _doc = doc;
         }
 
+        public override XmlNode Node => _doc;
+
         public IFluentXmlDeclaration Declaration
         {
             get
@@ -23,8 +25,6 @@ namespace Saxxon.Xml.Impl.SysXml
 
         public IFluentXmlNode Root =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(_doc?.ChildNodes.OfType<XmlElement>().Single());
-
-        public override XmlNode Node => _doc;
 
         public IFluentXmlEntitySet Entities => new FluentSysXmlEntitySet(_doc);
     }

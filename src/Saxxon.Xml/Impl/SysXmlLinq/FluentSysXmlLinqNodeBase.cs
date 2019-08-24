@@ -6,6 +6,16 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal abstract class FluentSysXmlLinqNodeBase : FluentSysXmlLinqObjectBase, IFluentXmlNode
     {
+        public virtual IFluentXmlNode this[int index]
+        {
+            get
+            {
+                return Name == null
+                    ? Parent?.Children[index]
+                    : Parent?.Children.Where(x => x.Name == Name).Skip(index).FirstOrDefault();
+            }
+        }
+
         public virtual IFluentXmlChildSet Children =>
             new FluentSysXmlLinqChildSet(Node as XContainer);
 
@@ -18,7 +28,6 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             set
             {
                 if (Node is XContainer node)
-                {
                     try
                     {
                         node.ReplaceNodes(XElement.Parse(value));
@@ -27,7 +36,6 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
                     {
                         node.ReplaceNodes(new XText(value));
                     }
-                }
             }
         }
 
@@ -40,7 +48,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         public IFluentXmlNode Previous =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create((Node as XNode)?.PreviousNode);
 
-        public override string ToString() =>
-            Node?.ToString() ?? "<!--null-->";
+        public override string ToString()
+        {
+            return Node?.ToString() ?? "<!--null-->";
+        }
     }
 }

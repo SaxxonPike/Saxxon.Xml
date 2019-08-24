@@ -14,20 +14,18 @@ namespace Saxxon.Xml.Impl.SysXml
             _owner = owner;
         }
 
-        private IEnumerable<XmlAttribute> GetNodes() =>
-            _owner?.Attributes?
-                .Cast<XmlAttribute>() ??
-            Enumerable
-                .Empty<XmlAttribute>();
-
-        public IEnumerator<IFluentXmlAttribute> GetEnumerator() =>
-            GetNodes()
+        public IEnumerator<IFluentXmlAttribute> GetEnumerator()
+        {
+            return GetNodes()
                 .Select(FluentSysXmlFactory.Create)
                 .Cast<IFluentXmlAttribute>()
                 .GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         public IFluentXmlAttribute this[string name] =>
             new FluentSysXmlAttribute(_owner, name);
@@ -35,6 +33,14 @@ namespace Saxxon.Xml.Impl.SysXml
         public IEnumerable<string> Keys =>
             GetNodes()
                 .Select(x => x.Name);
+
+        private IEnumerable<XmlAttribute> GetNodes()
+        {
+            return _owner?.Attributes?
+                       .Cast<XmlAttribute>() ??
+                   Enumerable
+                       .Empty<XmlAttribute>();
+        }
 
         public override string ToString()
         {

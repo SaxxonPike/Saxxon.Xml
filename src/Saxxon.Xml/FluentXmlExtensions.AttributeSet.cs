@@ -58,7 +58,9 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static Dictionary<string, string> ToDictionary(this IFluentXmlAttributeSet obj) =>
-            obj.ToDictionary(x => x.Name, x => x.Value);
+        public static Dictionary<string, string> ToDictionary(this IFluentXmlAttributeSet obj)
+        {
+            return obj.ToDictionary(x => x.Name, x => x.Value);
+        }
     }
 }

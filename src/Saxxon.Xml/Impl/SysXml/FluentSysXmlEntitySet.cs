@@ -14,18 +14,24 @@ namespace Saxxon.Xml.Impl.SysXml
             _doc = doc;
         }
 
-        private IEnumerable<XmlEntity> GetNodes() =>
-            _doc?.ChildNodes.OfType<XmlEntity>() ??
-            Enumerable.Empty<XmlEntity>();
-
-        public IEnumerator<IFluentXmlEntity> GetEnumerator() =>
-            GetNodes()
+        public IEnumerator<IFluentXmlEntity> GetEnumerator()
+        {
+            return GetNodes()
                 .Select(FluentSysXmlFactory.Create)
                 .Cast<IFluentXmlEntity>()
                 .GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<XmlEntity> GetNodes()
+        {
+            return _doc?.ChildNodes.OfType<XmlEntity>() ??
+                   Enumerable.Empty<XmlEntity>();
+        }
 
         public override string ToString()
         {

@@ -11,6 +11,8 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             _doc = doc;
         }
 
+        public override XObject Node => _doc;
+
         public IFluentXmlDeclaration Declaration =>
             _doc?.Declaration == null ? null : new FluentSysXmlLinqDeclaration(_doc.Declaration);
 
@@ -18,7 +20,5 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create(_doc?.Root);
 
         public IFluentXmlEntitySet Entities => new FluentSysXmlLinqEntitySet();
-
-        public override XObject Node => _doc;
     }
 }

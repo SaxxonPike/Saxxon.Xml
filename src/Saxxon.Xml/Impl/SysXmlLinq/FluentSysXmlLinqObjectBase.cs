@@ -5,6 +5,8 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
 {
     internal abstract class FluentSysXmlLinqObjectBase : IFluentXmlObject
     {
+        public abstract XObject Node { get; }
+
         public virtual IFluentXmlNode Parent =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create(Node?.Parent);
 
@@ -39,9 +41,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             }
         }
 
-        public abstract XObject Node { get; }
-
-        public override string ToString() =>
-            Node?.ToString() ?? string.Empty;
+        public override string ToString()
+        {
+            return Node?.ToString() ?? string.Empty;
+        }
     }
 }

@@ -12,9 +12,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
             Name = name;
         }
 
-        public override string Name { get; }
-
         public override XObject Node => _element?.Attribute(Name);
+
+        public override string Name { get; }
 
         public override string Value
         {

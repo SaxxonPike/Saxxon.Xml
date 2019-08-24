@@ -109,8 +109,10 @@ namespace Saxxon.Xml
             return obj;
         }
 
-        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject =>
-            obj.Where(x => x.Name == name);
+        public static IEnumerable<T> WithName<T>(this IEnumerable<T> obj, string name) where T : IFluentXmlObject
+        {
+            return obj.Where(x => x.Name == name);
+        }
 
         public static IFluentXmlObject SetValue(this IFluentXmlObject obj, string value)
         {
@@ -121,6 +123,54 @@ namespace Saxxon.Xml
         public static T Use<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
         {
             setup(obj);
+            return obj;
+        }
+
+        public static T IfNull<T>(this T obj, Action setup) where T : IFluentXmlObject
+        {
+            if (obj == null)
+                setup();
+            return obj;
+        }
+
+        public static T IfNotNull<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
+        {
+            if (obj != null)
+                setup(obj);
+            return obj;
+        }
+
+        public static T IfEmpty<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
+        {
+            switch (obj)
+            {
+                case IFluentXmlNode fxn:
+                    if (fxn.Children == null || !fxn.Children.Any())
+                        setup(obj);
+                    break;
+                case IFluentXmlObject fxo:
+                    if (string.IsNullOrEmpty(fxo.Value))
+                        setup(obj);
+                    break;
+            }
+
+            return obj;
+        }
+
+        public static T IfNotEmpty<T>(this T obj, Action<T> setup) where T : IFluentXmlObject
+        {
+            switch (obj)
+            {
+                case IFluentXmlNode fxn:
+                    if (fxn.Children != null && fxn.Children.Any())
+                        setup(obj);
+                    break;
+                case IFluentXmlObject fxo:
+                    if (!string.IsNullOrEmpty(fxo.Value))
+                        setup(obj);
+                    break;
+            }
+
             return obj;
         }
     }
