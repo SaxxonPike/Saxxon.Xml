@@ -12,15 +12,15 @@ namespace Saxxon.Xml.Impl.SysXml
             Name = name;
         }
 
-        public override IFluentXmlNode Parent =>
-            (IFluentXmlNode) FluentSysXmlFactory.Create(_parent);
-
-        public override string Name { get; }
-
         public override XmlNode Node =>
             _parent?
                 .Attributes?
                 .GetNamedItem(Name);
+
+        public override IFluentXmlNode Parent =>
+            (IFluentXmlNode) FluentSysXmlFactory.Create(_parent);
+
+        public override string Name { get; }
 
         public override string Value
         {

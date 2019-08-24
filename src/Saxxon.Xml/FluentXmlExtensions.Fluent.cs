@@ -12,24 +12,46 @@ namespace Saxxon.Xml
     {
         // System.Xml
 
-        public static IFluentXmlAttribute Fluent(this XmlAttribute obj) =>
-            (IFluentXmlAttribute) FluentSysXmlFactory.Create(obj);
+        public static IFluentXmlAttribute Fluent(this XmlAttribute obj)
+        {
+            return (IFluentXmlAttribute) FluentSysXmlFactory.Create(obj);
+        }
 
-        public static IFluentXmlComment Fluent(this XmlComment obj) =>
-            (IFluentXmlComment) FluentSysXmlFactory.Create(obj);
+        public static IFluentXmlComment Fluent(this XmlComment obj)
+        {
+            return (IFluentXmlComment) FluentSysXmlFactory.Create(obj);
+        }
 
-        public static IFluentXmlDeclaration Fluent(this XmlDeclaration obj) =>
-            (IFluentXmlDeclaration) FluentSysXmlFactory.Create(obj);
+        public static IFluentXmlDeclaration Fluent(this XmlDeclaration obj)
+        {
+            return (IFluentXmlDeclaration) FluentSysXmlFactory.Create(obj);
+        }
 
-        public static IFluentXmlDocument Fluent(this XmlDocument obj) =>
-            (IFluentXmlDocument) FluentSysXmlFactory.Create(obj);
+        public static IFluentXmlDocument Fluent(this XmlDocument obj)
+        {
+            return (IFluentXmlDocument) FluentSysXmlFactory.Create(obj);
+        }
+
+        public static IFluentXmlNode Fluent(this XmlNode obj)
+        {
+            return (IFluentXmlNode) FluentSysXmlFactory.Create(obj);
+        }
 
         // System.Xml.Linq
 
-        public static IFluentXmlAttribute Fluent(this XAttribute obj) =>
-            (IFluentXmlAttribute) FluentSysXmlLinqFactory.Create(obj);
+        public static IFluentXmlAttribute Fluent(this XAttribute obj)
+        {
+            return (IFluentXmlAttribute) FluentSysXmlLinqFactory.Create(obj);
+        }
 
-        public static IFluentXmlDocument Fluent(this XDocument obj) =>
-            (IFluentXmlDocument) FluentSysXmlLinqFactory.Create(obj);
+        public static IFluentXmlDocument Fluent(this XDocument obj)
+        {
+            return (IFluentXmlDocument) FluentSysXmlLinqFactory.Create(obj);
+        }
+        
+        public static IFluentXmlNode Fluent(this XNode obj)
+        {
+            return (IFluentXmlNode) FluentSysXmlLinqFactory.Create(obj);
+        }
     }
 }

@@ -50,6 +50,30 @@ namespace Saxxon.Xml
             return obj;
         }
 
+        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet obj, string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            if (!obj.Any(x => name == x?.Name))
+                obj.CreateElement(name);
+            return obj;
+        }
+
+        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet obj, string name,
+            Action<IFluentXmlElement> setup)
+        {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            var element = obj
+                              .OfType<IFluentXmlElement>()
+                              .FirstOrDefault(x => name == x?.Name) ??
+                          obj.CreateElement(name);
+            setup(element);
+            return obj;
+        }
+
         public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet obj,
             Func<IFluentXmlNode, bool> predicate)
         {
