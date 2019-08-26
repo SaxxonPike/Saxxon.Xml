@@ -5,22 +5,28 @@ namespace Saxxon.Xml
 {
     public static partial class FluentXmlExtensions
     {
-        public static IFluentXmlDeclaration SetVersion(this IFluentXmlDeclaration obj, string value)
+        public static IFluentXmlDeclaration SetVersion(this IFluentXmlDeclaration self, string value)
         {
-            obj.Version = value;
-            return obj;
+            Assert.NotNull(self, nameof(self));
+
+            self.Version = value;
+            return self;
         }
 
-        public static IFluentXmlDeclaration SetStandalone(this IFluentXmlDeclaration obj, string value)
+        public static IFluentXmlDeclaration SetStandalone(this IFluentXmlDeclaration self, string value)
         {
-            obj.Standalone = value;
-            return obj;
+            Assert.NotNull(self, nameof(self));
+
+            self.Standalone = value;
+            return self;
         }
 
-        public static IFluentXmlDeclaration SetEncoding(this IFluentXmlDeclaration obj, string value)
+        public static IFluentXmlDeclaration SetEncoding(this IFluentXmlDeclaration self, string value)
         {
-            obj.Encoding = value;
-            return obj;
+            Assert.NotNull(self, nameof(self));
+
+            self.Encoding = value;
+            return self;
         }
     }
 }

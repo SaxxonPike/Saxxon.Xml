@@ -12,46 +12,62 @@ namespace Saxxon.Xml
     {
         // System.Xml
 
-        public static IFluentXmlAttribute Fluent(this XmlAttribute obj)
+        public static IFluentXmlAttribute Fluent(this XmlAttribute self)
         {
-            return (IFluentXmlAttribute) FluentSysXmlFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlAttribute) FluentSysXmlFactory.Create(self);
         }
 
-        public static IFluentXmlComment Fluent(this XmlComment obj)
+        public static IFluentXmlComment Fluent(this XmlComment self)
         {
-            return (IFluentXmlComment) FluentSysXmlFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlComment) FluentSysXmlFactory.Create(self);
         }
 
-        public static IFluentXmlDeclaration Fluent(this XmlDeclaration obj)
+        public static IFluentXmlDeclaration Fluent(this XmlDeclaration self)
         {
-            return (IFluentXmlDeclaration) FluentSysXmlFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlDeclaration) FluentSysXmlFactory.Create(self);
         }
 
-        public static IFluentXmlDocument Fluent(this XmlDocument obj)
+        public static IFluentXmlDocument Fluent(this XmlDocument self)
         {
-            return (IFluentXmlDocument) FluentSysXmlFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlDocument) FluentSysXmlFactory.Create(self);
         }
 
-        public static IFluentXmlNode Fluent(this XmlNode obj)
+        public static IFluentXmlNode Fluent(this XmlNode self)
         {
-            return (IFluentXmlNode) FluentSysXmlFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlNode) FluentSysXmlFactory.Create(self);
         }
 
         // System.Xml.Linq
 
-        public static IFluentXmlAttribute Fluent(this XAttribute obj)
+        public static IFluentXmlAttribute Fluent(this XAttribute self)
         {
-            return (IFluentXmlAttribute) FluentSysXmlLinqFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlAttribute) FluentSysXmlLinqFactory.Create(self);
         }
 
-        public static IFluentXmlDocument Fluent(this XDocument obj)
+        public static IFluentXmlDocument Fluent(this XDocument self)
         {
-            return (IFluentXmlDocument) FluentSysXmlLinqFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlDocument) FluentSysXmlLinqFactory.Create(self);
         }
-        
-        public static IFluentXmlNode Fluent(this XNode obj)
+
+        public static IFluentXmlNode Fluent(this XNode self)
         {
-            return (IFluentXmlNode) FluentSysXmlLinqFactory.Create(obj);
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlNode) FluentSysXmlLinqFactory.Create(self);
         }
     }
 }
