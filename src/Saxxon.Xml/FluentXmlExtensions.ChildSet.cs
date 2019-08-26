@@ -8,78 +8,96 @@ namespace Saxxon.Xml
 {
     public static partial class FluentXmlExtensions
     {
-        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet obj, string content)
+        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet self, string content)
         {
-            var comment = obj.CreateComment();
+            Assert.NotNull(self, nameof(self));
+
+            var comment = self.CreateComment();
             comment.Value = content;
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet obj, Action<IFluentXmlComment> setup)
+        public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet self, Action<IFluentXmlComment> setup)
         {
-            var comment = obj.CreateComment();
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(setup, nameof(setup));
+
+            var comment = self.CreateComment();
             setup(comment);
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet obj, string name)
+        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet self, string name)
         {
-            obj.CreateElement(name);
-            return obj;
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(name, nameof(name));
+
+            self.CreateElement(name);
+            return self;
         }
 
-        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet obj, string name,
+        public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet self, string name,
             Action<IFluentXmlElement> setup)
         {
-            var element = obj.CreateElement(name);
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(setup, nameof(setup));
+
+            var element = self.CreateElement(name);
             setup(element);
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet obj, string content)
+        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet self, string content)
         {
-            var text = obj.CreateText();
+            Assert.NotNull(self, nameof(self));
+
+            var text = self.CreateText();
             text.Value = content;
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet obj, Action<IFluentXmlText> setup)
+        public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet self, Action<IFluentXmlText> setup)
         {
-            var text = obj.CreateText();
+            Assert.NotNull(self, nameof(self));
+
+            var text = self.CreateText();
             setup(text);
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet obj, string name)
+        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet self, string name)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(name, nameof(name));
 
-            if (!obj.Any(x => name == x?.Name))
-                obj.CreateElement(name);
-            return obj;
+            if (self.All(x => name != x?.Name))
+                self.CreateElement(name);
+            return self;
         }
 
-        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet obj, string name,
+        public static IFluentXmlChildSet GetOrAppendElement(this IFluentXmlChildSet self, string name,
             Action<IFluentXmlElement> setup)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(name, nameof(name));
 
-            var element = obj
+            var element = self
                               .OfType<IFluentXmlElement>()
                               .FirstOrDefault(x => name == x?.Name) ??
-                          obj.CreateElement(name);
+                          self.CreateElement(name);
             setup(element);
-            return obj;
+            return self;
         }
 
-        public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet obj,
+        public static IFluentXmlChildSet RemoveWhere(this IFluentXmlChildSet self,
             Func<IFluentXmlNode, bool> predicate)
         {
-            foreach (var node in obj.Where(predicate).ToArray())
-                obj.Remove(node);
-            return obj;
+            Assert.NotNull(self, nameof(self));
+            Assert.NotNull(predicate, nameof(predicate));
+
+            foreach (var node in self.Where(predicate).ToArray())
+                self.Remove(node);
+            return self;
         }
     }
 }
