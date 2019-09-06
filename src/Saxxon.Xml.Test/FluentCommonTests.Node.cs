@@ -77,6 +77,31 @@ namespace Saxxon.Xml.Test
         }
 
         [Test]
+        public void Node_ShouldSetAttribute()
+        {
+            // Arrange.
+            var document = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                       "<root>" +
+                                       "<test></test>" +
+                                       "</root>");
+
+            // Act.
+            document
+                .Root
+                .Children[0]
+                .SetAttribute("blah", attr => { attr.Value = "test"; });
+
+            // Assert.
+            document
+                .Root
+                .Children
+                .Single()
+                .Attributes["blah"]
+                .Value
+                .Should().Be("test");
+        }
+
+        [Test]
         public void Node_ShouldSetXml()
         {
             // Arrange.
