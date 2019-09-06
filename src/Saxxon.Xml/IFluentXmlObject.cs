@@ -5,12 +5,24 @@ namespace Saxxon.Xml
     /// </summary>
     public interface IFluentXmlObject
     {
+        /// <summary>
+        /// Get the parent node of this object.
+        /// </summary>
         IFluentXmlNode Parent { get; }
 
+        /// <summary>
+        /// Get the name of this object.
+        /// </summary>
         string Name { get; }
 
+        /// <summary>
+        /// Get the namespace of this object.
+        /// </summary>
         string Namespace { get; }
 
+        /// <summary>
+        /// Get or set the text value of this object.
+        /// </summary>
         string Value { get; set; }
     }
 }

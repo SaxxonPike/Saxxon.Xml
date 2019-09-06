@@ -8,6 +8,9 @@ namespace Saxxon.Xml
 {
     public static partial class FluentXmlExtensions
     {
+        /// <summary>
+        /// Append a lowermost child comment with the specified content.
+        /// </summary>
         public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet self, string content)
         {
             Assert.NotNull(self, nameof(self));
@@ -17,6 +20,9 @@ namespace Saxxon.Xml
             return self;
         }
 
+        /// <summary>
+        /// Append and scope to a new lowermost child comment.
+        /// </summary>
         public static IFluentXmlChildSet AppendComment(this IFluentXmlChildSet self, Action<IFluentXmlComment> setup)
         {
             Assert.NotNull(self, nameof(self));
@@ -27,6 +33,9 @@ namespace Saxxon.Xml
             return self;
         }
 
+        /// <summary>
+        /// Append a lowermost child element with the specified content.
+        /// </summary>
         public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet self, string name)
         {
             Assert.NotNull(self, nameof(self));
@@ -36,6 +45,9 @@ namespace Saxxon.Xml
             return self;
         }
 
+        /// <summary>
+        /// Append and scope to a new lowermost child element.
+        /// </summary>
         public static IFluentXmlChildSet AppendElement(this IFluentXmlChildSet self, string name,
             Action<IFluentXmlElement> setup)
         {
@@ -47,6 +59,9 @@ namespace Saxxon.Xml
             return self;
         }
 
+        /// <summary>
+        /// Append a lowermost child text block with the specified content.
+        /// </summary>
         public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet self, string content)
         {
             Assert.NotNull(self, nameof(self));
@@ -56,6 +71,9 @@ namespace Saxxon.Xml
             return self;
         }
 
+        /// <summary>
+        /// Append and scope to a new lowermost child text block.
+        /// </summary>
         public static IFluentXmlChildSet AppendText(this IFluentXmlChildSet self, Action<IFluentXmlText> setup)
         {
             Assert.NotNull(self, nameof(self));
