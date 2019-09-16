@@ -16,6 +16,9 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         public IFluentXmlDeclaration Declaration =>
             _doc?.Declaration == null ? null : new FluentSysXmlLinqDeclaration(_doc.Declaration);
 
+        public IFluentXmlDocumentType Type =>
+            (IFluentXmlDocumentType) FluentSysXmlLinqFactory.Create(_doc?.DocumentType);
+
         public IFluentXmlNode Root =>
             (IFluentXmlNode) FluentSysXmlLinqFactory.Create(_doc?.Root);
 

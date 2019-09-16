@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Linq;
 
 namespace Saxxon.Xml.Impl.SysXmlLinq
@@ -10,6 +11,8 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         {
             _docType = docType;
         }
+
+        public override string Name => "DOCTYPE";
 
         public override XObject Node => _docType;
 
@@ -29,6 +32,12 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
         {
             get => _docType.InternalSubset;
             set => _docType.InternalSubset = value;
+        }
+
+        public string Id
+        {
+            get => _docType.Name;
+            set => _docType.Name = value;
         }
     }
 }

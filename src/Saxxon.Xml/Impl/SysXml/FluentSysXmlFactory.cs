@@ -18,6 +18,8 @@ namespace Saxxon.Xml.Impl.SysXml
                     return new FluentSysXmlDeclaration(declaration);
                 case XmlDocument document:
                     return new FluentSysXmlDocument(document);
+                case XmlDocumentType docType:
+                    return new FluentSysXmlDocumentType(docType);
                 case XmlElement element:
                     return new FluentSysXmlElement(element);
                 case XmlEntity entity:

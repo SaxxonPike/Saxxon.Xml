@@ -6,9 +6,14 @@ namespace Saxxon.Xml
     public interface IFluentXmlDocument : IFluentXmlNode
     {
         /// <summary>
-        /// Get the declaration object for to this document.
+        /// Get the declaration object for this document.
         /// </summary>
         IFluentXmlDeclaration Declaration { get; }
+        
+        /// <summary>
+        /// Get the document type object for this document.
+        /// </summary>
+        IFluentXmlDocumentType Type { get; }
 
         /// <summary>
         /// Get the root element of this document.

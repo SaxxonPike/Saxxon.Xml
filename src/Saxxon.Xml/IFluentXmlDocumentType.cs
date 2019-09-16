@@ -19,5 +19,10 @@ namespace Saxxon.Xml
         /// Get or set the Internal Subset for this document.
         /// </summary>
         string InternalSubset { get; set; }
+        
+        /// <summary>
+        /// Get or set the type Id for this document.
+        /// </summary>
+        string Id { get; set; }
     }
 }

@@ -16,6 +16,8 @@ namespace Saxxon.Xml.Impl.SysXmlLinq
                     return new FluentSysXmlLinqComment(comment);
                 case XDocument document:
                     return new FluentSysXmlLinqDocument(document);
+                case XDocumentType docType:
+                    return new FluentSysXmlLinqDocumentType(docType);
                 case XElement element:
                     return new FluentSysXmlLinqElement(element);
                 case XText text:

@@ -23,6 +23,9 @@ namespace Saxxon.Xml.Impl.SysXml
             }
         }
 
+        public IFluentXmlDocumentType Type =>
+            (IFluentXmlDocumentType) FluentSysXmlFactory.Create(_doc?.DocumentType);
+
         public IFluentXmlNode Root =>
             (IFluentXmlNode) FluentSysXmlFactory.Create(_doc?.ChildNodes.OfType<XmlElement>().Single());
 

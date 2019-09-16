@@ -12,7 +12,9 @@ namespace Saxxon.Xml.Impl.SysXml
             _docType = docType;
         }
 
-        public override XmlNode Node { get; }
+        public override string Name => "DOCTYPE";
+
+        public override XmlNode Node => _docType;
 
         public string SystemId
         {
@@ -31,6 +33,13 @@ namespace Saxxon.Xml.Impl.SysXml
         public string InternalSubset
         {
             get => _docType.InternalSubset;
+            set => throw new NotSupportedException(
+                $"{nameof(XmlDocumentType)} does not support setting {nameof(InternalSubset)}.");
+        }
+
+        public string Id
+        {
+            get => _docType.Name;
             set => throw new NotSupportedException(
                 $"{nameof(XmlDocumentType)} does not support setting {nameof(InternalSubset)}.");
         }
