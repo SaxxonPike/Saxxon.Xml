@@ -1,6 +1,8 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using Saxxon.Xml.Impl.SysXml;
+using Saxxon.Xml.Impl.SysXmlLinq;
 
 namespace Saxxon.Xml.Test
 {
@@ -30,6 +32,18 @@ namespace Saxxon.Xml.Test
                 .Use(d => d.Encoding.Should().Be("ASCII"))
                 .Use(d => d.Standalone.Should().Be("yes"))
                 .Use(d => d.Version.Should().Be("1.1"));
+        }
+
+        [Test]
+        public void Node_ShouldGetUnderlyingNode()
+        {
+            var doc = GetDocument("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                  "<root>" +
+                                  "</root>")
+                .As<FluentSysXmlLinqDocument>();
+
+            var node = doc.Node;
+            node.Fluent().AsXObject().Should().BeSameAs(node);
         }
     }
 }
