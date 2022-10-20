@@ -40,6 +40,13 @@ namespace Saxxon.Xml
             return (IFluentXmlDocument) FluentSysXmlFactory.Create(self);
         }
 
+        public static IFluentXmlElement Fluent(this XmlElement self)
+        {
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlElement) FluentSysXmlFactory.Create(self);
+        }
+
         public static IFluentXmlNode Fluent(this XmlNode self)
         {
             Assert.NotNull(self, nameof(self));
@@ -68,6 +75,13 @@ namespace Saxxon.Xml
             Assert.NotNull(self, nameof(self));
 
             return (IFluentXmlDocument) FluentSysXmlLinqFactory.Create(self);
+        }
+
+        public static IFluentXmlElement Fluent(this XElement self)
+        {
+            Assert.NotNull(self, nameof(self));
+
+            return (IFluentXmlElement) FluentSysXmlLinqFactory.Create(self);
         }
 
         public static IFluentXmlNode Fluent(this XNode self)
